@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h3 class="text-center p-4">🎵</h3>
+    <button @click="startAudioScheduler" class="btn btn-danger d-block mx-auto">Start audio</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Scheduler from '@/Classes/Scheduler/index.mjs';
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      scheduler : null,
+      reload : 0, 
+    }
+  },
+  methods:{
+    startAudioScheduler(){
+      this.scheduler = new Scheduler();
+    }
   }
 }
 </script>

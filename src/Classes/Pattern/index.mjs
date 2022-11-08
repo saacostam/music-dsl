@@ -1,0 +1,7 @@
+class Pattern{
+    constructor(){
+
+    }
+
+    
+}

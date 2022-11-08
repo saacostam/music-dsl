@@ -1,19 +1,90 @@
-# msc-pl
+# Music Programming Language 🎵
 
-## Project setup
+# To-do
+- Config
+- Melodic Tablature
+- Rhythmic Tablature
+- Creating Effects
+- Bus: Oscillator
+- Bus: File
+- Pattern
+- Scheduling
+<br>
+
+
+- Limpiar timeouts
+- Desconectar nodos (Redefinir los nodos destino)
+
+# Documentation
+
+## Contents
+<ul>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#tablature">Tablature</a></li>
+    <li><a href="#audio-effects">Audio Effects</a></li>
+    <li><a href="#source">Audio Source</a></li>
+</ul>
+
+<br>
+
+<h2 id="configuration">Configuration</h2>
+
 ```
-npm install
+Config {
+    bpm := 120;
+    detail := 4;
+}
 ```
 
-### Compiles and hot-reloads for development
+<h2 id="tablature">Tablature</h2>
+
+### Melodic Tablature
 ```
-npm run serve
+Tablature <Name> : Melodic {A4.4, _.4, C#2.5, C#6.8}
 ```
 
-### Compiles and minifies for production
+### Rhythmic Tablature
 ```
-npm run build
+Tablature <Name> : Rhythmic {--.- --.- --.- --.-}
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<h2 id="audio-effects">Audio Effects</h2>
+
+```
+Effect <Name> : <Type> {
+    <Params>
+}
+```
+
+<h2 id="source">Audio Source</h2>
+
+### Oscillator
+```
+Source <Name> : Osc( <OscType> ) {
+    delay -> reverb -> bitcrush
+}
+```
+
+### File
+```
+Source <Name> : File("std/kick 1.mp3") {
+    delay -> reverb -> bitcrush
+}
+```
+
+### Pattern
+```
+Pattern <Name> {<TablatureName> -> <SourceName>}
+```
+
+### Scheduling
+```
+Scheduler{
+    Loop <PatternName> ;
+    Sequential <PatternName> -> <PatternName> -> <PatternName> ;
+}
+```
+
+<style>
+a{color: white;}
+</style>
