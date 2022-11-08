@@ -1,27 +1,34 @@
 import {MelodicTablature, RhythmicTablature} from "../Tablature/index.mjs";
-import Source from "../Source";
+import {SourceOsc, SourceFile} from "../Source";
 import AudioContextDelivery from '../AudioContextDelivery';
+import Pattern from '../Pattern';
 
 import getDefaultEffects from '../Effect/defaultEffects/index.mjs';
 
 class Scheduler{
     constructor(){
-        // if (Scheduler.instance != null){
-        //     return Scheduler.instance;
-        // }
+        // Singleton
+        if (Scheduler.instance != null){
+            return Scheduler.instance;
+        }
 
-        // Scheduler.instance = this;
+        Scheduler.instance = this;
 
         this.audioContext = new AudioContextDelivery().getAudioContext();
-        this.config = {
-            bpm : 110,
-        };
 
         // Lista de timeOuts :: para poder limpiar los timeouts si se detiene la reproducción
         this.timeOuts = []; 
-
-        // Tablatures
         this.tablatures = {};
+        this.fxs = getDefaultEffects(this.audioContext);
+        this.sources = {};
+        this.patterns = {};
+        this.config = {};
+    }
+
+    buildNodes(){
+        this.config = {
+            bpm : 110,
+        };
 
         this.tablatures.tab1 = new MelodicTablature();
         this.tablatures.tab1.setNotes([
@@ -82,51 +89,68 @@ class Scheduler{
             true, true, false, true,
             true, 
         ])
+        
 
-        // FX's
-        this.fxs = getDefaultEffects(this.audioContext);
-
-        // Sources
-        this.sources = {};
-
-        this.sources.bus1 = new Source(this.audioContext, this.config);
-        this.sources.bus1.setSrc('osc', {type: 'square'});
+        this.sources.bus1 = new SourceOsc(this.audioContext, this.config, {type: 'square'});
         this.sources.bus1.setFXChain([
             // this.fxs.delay,
             this.fxs.reverb,
             // this.fxs.highpassfilter,
         ]);
 
-        this.sources.bus2 = new Source(this.audioContext, this.config);
-        this.sources.bus2.setSrc('file', {file: 'std/Kick.wav'});
+        this.sources.bus2 = new SourceFile(this.audioContext, this.config, {file: 'std/Kick.wav'});
         this.sources.bus2.setFXChain([]);
 
-        this.sources.bus3 = new Source(this.audioContext, this.config);
-        this.sources.bus3.setSrc('file', {file: 'std/Snare.wav'});
+        this.sources.bus3 = new SourceFile(this.audioContext, this.config, {file: 'std/Snare.wav'});
         this.sources.bus3.setFXChain([
-            // this.fxs.pingPongDelay,
+            // this.fxs.reverb,
             // this.fxs.highpassfilter,
         ]);
 
-        this.sources.bus4 = new Source(this.audioContext, this.config);
-        this.sources.bus4.setSrc('file', {file: 'std/Hihat.wav'});
+        this.sources.bus4 = new SourceFile(this.audioContext, this.config, {file: 'std/Hihat.wav'});
         this.sources.bus4.setFXChain([
             // this.fxs.reverb,
             // this.fxs.highpassfilter,
         ]);
 
-        this.sources.bus5 = new Source(this.audioContext, this.config);
-        this.sources.bus5.setSrc('file', {file: 'std/Shaker.wav'});
+        this.sources.bus5 = new SourceFile(this.audioContext, this.config, {file: 'std/Shaker.wav'});
         this.sources.bus5.setFXChain([
             this.fxs.reverb,
             // this.fxs.highpassfilter,
         ]);
 
-        // this.sources.bus1.play(this.tablatures.tab1.getNotes(), this.timeOuts);
-        this.sources.bus2.play(this.tablatures.tab2.getNotes(), this.timeOuts);
-        this.sources.bus3.play(this.tablatures.tab3.getNotes(), this.timeOuts);
-        // this.sources.bus4.play(this.tablatures.tab4.getNotes(), this.timeOuts);
-        this.sources.bus5.play(this.tablatures.tab5.getNotes(), this.timeOuts);
+
+        this.patterns.pattern1 = new Pattern( this.tablatures.tab1, this.sources.bus1 );
+        this.patterns.pattern2 = new Pattern( this.tablatures.tab2, this.sources.bus2 );
+        this.patterns.pattern3 = new Pattern( this.tablatures.tab3, this.sources.bus3 );
+        this.patterns.pattern4 = new Pattern( this.tablatures.tab4, this.sources.bus4 );
+        this.patterns.pattern5 = new Pattern( this.tablatures.tab5, this.sources.bus5 );
+    }
+
+    testPlay(){
+        this.patterns.pattern1.play(this.timeOuts);
+        this.patterns.pattern2.play(this.timeOuts);
+        this.patterns.pattern3.play(this.timeOuts);
+        this.patterns.pattern5.play(this.timeOuts);
+    }
+
+    clearNodes(){
+        // Clear fx node chain from source element
+        for (const i in this.sources){
+            this.sources[i].clearNodes();
+        }
+
+        // Remove all timeouts
+        for (const i in this.timeOuts){
+            clearTimeout(this.timeOuts[i]);
+        }
+
+        this.timeOuts = []; 
+        this.tablatures = {};
+        this.fxs = getDefaultEffects(this.audioContext);
+        this.sources = {};
+        this.patterns = {};
+        this.config = {};
     }
 }
 

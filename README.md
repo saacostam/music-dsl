@@ -11,9 +11,14 @@
 - Scheduling
 <br>
 
-
+- Validar la compatibilidad entre patrones y sources
 - Limpiar timeouts
-- Desconectar nodos (Redefinir los nodos destino)
+- Desconectar nodos -> Validar con un visualizador de audioContext 
+
+```
+If you simply call audioNode.disconnect() with no parameters, it will disconnect all the inputs to the node as well as all the outputs from it.
+https://stackoverflow.com/questions/47352775/what-is-the-best-way-to-destroy-an-audionode
+```
 
 # Documentation
 

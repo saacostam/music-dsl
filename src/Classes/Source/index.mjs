@@ -1,37 +1,17 @@
 import Oscillator from "../Oscillator/index.mjs";
 import AudioContextDelivery from '../AudioContextDelivery/index.mjs';
 
-class Source{
-    constructor(audioContext, config){
-        this.audioContext = audioContext;
-        this.srcType = 'osc';
-        this.src = null;
+class SourceOsc{
+    constructor(audioContext, generalConfig, srcConfig){
+        this.audioNodes = [];
 
-        this.config = config;
+        this.audioContext = audioContext;
+        this.src = new Oscillator(this.audioContext, srcConfig);;
+
+        this.config = generalConfig;
 
         // HardCoded
         this.gridDetail = 4;
-    }
-
-    setSrc(srcType, srcConfig){
-        if (!(srcType === 'osc' || srcType === 'file')){
-            console.error('Invalid Source Type for Bus object');
-            return;
-        }
-        
-        this.srcType = srcType;
-
-        if (this.srcType == 'osc'){
-            this.src = new Oscillator(this.audioContext, srcConfig);
-        }else{
-            const {file} = srcConfig;
-
-            const audioContextDelivery = new AudioContextDelivery();
-            const temp = audioContextDelivery.getAudioElement(file)
-            
-            this.audioElement = temp.audioElement;
-            this.src = temp.mediaElementSource;
-        }
     }
 
     setFXChain(fxChain){
@@ -40,28 +20,21 @@ class Source{
             return;
         }
 
-        let lastNode;
-        if (this.srcType == 'osc'){
-            lastNode = this.src.vca;
-        }else{
-            lastNode = this.src;
-        }
+        let lastNode = this.src.vca;
 
         for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex+=1){
+            this.audioNodes.push( lastNode );
             lastNode.connect( fxChain[fxIndex] );
+
             lastNode = fxChain[fxIndex];
         }
 
+        this.audioNodes.push( lastNode );
         lastNode.connect(this.audioContext.destination);
     }
 
     play(tablature, timeOuts){
-        if (this.srcType === 'osc'){
-            this.playOscillator(tablature, timeOuts);
-        }else{
-            // this.srcType === "file"
-            this.playFile(tablature, timeOuts);
-        }
+        this.playOscillator(tablature, timeOuts)
     }
 
     playOscillator(tablature, timeOuts){
@@ -84,6 +57,58 @@ class Source{
         timeOuts.push(newTimeout);
     }
 
+    clearNodes(){
+        for (let i = 0; i < this.audioNodes.length; i++){
+            this.audioNodes[i].disconnect();
+        }
+        this.src.clearNodes();
+    }
+}
+
+class SourceFile{
+    constructor(audioContext, generalConfig, srcConfig){
+        this.audioNodes = [];
+
+        this.audioContext = audioContext;
+        
+        const {file} = srcConfig;
+
+        const audioContextDelivery = new AudioContextDelivery();
+        const temp = audioContextDelivery.getAudioElement(file)
+        
+        this.audioElement = temp.audioElement;
+        this.src = temp.mediaElementSource;
+
+        this.config = generalConfig;
+        this.audioNodes = [];
+
+        // HardCoded
+        this.gridDetail = 4;
+    }
+
+    setFXChain(fxChain){
+        if (this.src == null){
+            console.error('Source element was not defined')
+            return;
+        }
+
+        let lastNode = this.src;
+
+        for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex+=1){
+            this.audioNodes.push( lastNode );
+            lastNode.connect( fxChain[fxIndex] );
+
+            lastNode = fxChain[fxIndex];
+        }
+
+        this.audioNodes.push( lastNode );
+        lastNode.connect(this.audioContext.destination);
+    }
+
+    play(tablature, timeOuts){
+        this.playFile(tablature, timeOuts);
+    }
+
     playFile(tablature, timeOuts){
         if (tablature.length === 0){return;}
 
@@ -104,6 +129,12 @@ class Source{
         const newTimeout = window.setTimeout( this.playFile.bind(this, tablature, timeOuts), nextCall);
         timeOuts.push(newTimeout);
     }
+
+    clearNodes(){
+        for (let i = 0; i < this.audioNodes.length; i++){
+            this.audioNodes[i].disconnect();
+        }
+    }
 }
 
-export default Source;
+export {SourceOsc, SourceFile};
