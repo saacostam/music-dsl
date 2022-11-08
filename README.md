@@ -5,12 +5,14 @@
 - Melodic Tablature
 - Rhythmic Tablature
 - Creating Effects
-- Bus: Oscillator
-- Bus: File
+- Source: Oscillator
+- Source: File
 - Pattern
 - Scheduling
 <br>
 
+- Class Loop Track
+- Class Sequential Track
 - Normalizar las mayusculas para tipo de efecto en constructor
 - Normalizar las mayusculas para efectos por defecto
 
@@ -35,8 +37,8 @@ https://stackoverflow.com/questions/47352775/what-is-the-best-way-to-destroy-an-
 
 ```
 Config {
-    bpm := 120;
-    detail := 4;
+    bpm := 120,
+    detail := 4,
 }
 ```
 
@@ -84,8 +86,8 @@ Pattern <Name> {<TablatureName> -> <SourceName>}
 ### Scheduling
 ```
 Scheduler{
-    Loop <PatternName> ;
-    Sequential <PatternName> -> <PatternName> -> <PatternName> ;
+    Loop <PatternName> ,
+    Sequential <PatternName> -> <PatternName> -> <PatternName> ,
 }
 ```
 

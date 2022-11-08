@@ -44,64 +44,25 @@ class Scheduler{
         ]);
 
         this.tablatures.tab2 = new RhythmicTablature();
-        this.tablatures.tab2.setNotes([
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-            true, false, false, false,
-        ])
+        this.tablatures.tab2.setNotes(".___ .___ .___ .___ .___ .___ .___ .___");
 
         this.tablatures.tab3 = new RhythmicTablature();
-        this.tablatures.tab3.setNotes([
-            false, false, false, true,
-            false, false, true, false,
-            false, false, false, true,
-            false, false, true, false,
-            false, false, false, true,
-            false, false, true, false,
-            false, false, false, true,
-            false, false, true, false,
-        ])
+        this.tablatures.tab3.setNotes("___. __._ ___. __._ ___. __._ ___. __._ ");
 
         this.tablatures.tab4 = new RhythmicTablature();
-        this.tablatures.tab4.setNotes([
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-            false, false, true, false,
-        ])
+        this.tablatures.tab4.setNotes("__._ __._ __._ __._ __._ __._ __._ __._ ");
 
         this.tablatures.tab5 = new RhythmicTablature();
-        this.tablatures.tab5.setNotes([
-            true, false, true, true, true, false, true,
-            true, true, false, true,
-            true, true, false, true,
-            true, true, false, true,
-            true, true, false, true,
-            true, true, false, true,
-            true, true, false, true,
-            true, 
-        ])
+        this.tablatures.tab5.setNotes("._.. ._.. ._.. ._.. ._.. ._.. ._.. ._.. ");
 
         // Effects
         const effectSingleton = new Effect();
-        this.fxs.myReverb = effectSingleton.createEffect('Reverb', {
+        this.fxs["myReverb"] = effectSingleton.createEffect('Reverb', {
             time: 0.1,
             decay: 0.1,
             reverse: false,
             mix: 0.8
-        });
-
-        console.log(this.fxs.myReverb);
-        
+        });        
 
         this.sources.bus1 = new SourceOsc(this.audioContext, this.config, {type: 'square'});
         this.sources.bus1.setFXChain([
