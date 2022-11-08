@@ -1,6 +1,6 @@
 class AudioContextDelivery{
     constructor(){
-        if (AudioContextDelivery.instance != null){
+        if (AudioContextDelivery.instance){
             return AudioContextDelivery.instance;
         }
 

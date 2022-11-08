@@ -11,9 +11,8 @@
 - Scheduling
 <br>
 
-- Validar la compatibilidad entre patrones y sources
-- Limpiar timeouts
-- Desconectar nodos -> Validar con un visualizador de audioContext 
+- Normalizar las mayusculas para tipo de efecto en constructor
+- Normalizar las mayusculas para efectos por defecto
 
 ```
 If you simply call audioNode.disconnect() with no parameters, it will disconnect all the inputs to the node as well as all the outputs from it.

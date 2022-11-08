@@ -1,7 +1,5 @@
 import AudioContextDelivery from './Classes/AudioContextDelivery/index.mjs';
-
-// Audio Constant Configuration
-const audioFiles = ["std/Kick.wav", "std/Snare.wav", "std/Shaker.wav", "std/Hihat.wav"];
+import audioFiles from './Classes/AudioContextDelivery/audioFiles.js';
 
 function createAudioElement(file){
     const audioElement = document.createElement('audio');

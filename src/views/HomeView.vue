@@ -4,6 +4,7 @@
     <button @click="startAudioScheduler" class="btn btn-success d-block mx-auto m-3">Start audio</button>
     <button @click="bulidNodes" class="btn btn-primary d-block mx-auto m-3">Build Nodes</button>
     <button @click="testPlay" class="btn btn-secondary d-block mx-auto m-3">Play Sound</button>
+    <button @click="testPause" class="btn btn-warning d-block mx-auto m-3">Pause Sound</button>
     <button @click="clearNodes" class="btn btn-danger d-block mx-auto m-3">Clear nodes</button>
   </div>
 </template>
@@ -33,6 +34,9 @@ export default {
     },
     testPlay(){
       if (this.scheduler){this.scheduler.testPlay();}
+    },
+    testPause(){
+      if (this.scheduler){this.scheduler.testPause();}
     }
   }
 }

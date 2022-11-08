@@ -2,13 +2,14 @@ import {MelodicTablature, RhythmicTablature} from "../Tablature/index.mjs";
 import {SourceOsc, SourceFile} from "../Source";
 import AudioContextDelivery from '../AudioContextDelivery';
 import Pattern from '../Pattern';
+import Effect from "../Effect";
 
 import getDefaultEffects from '../Effect/defaultEffects/index.mjs';
 
 class Scheduler{
     constructor(){
         // Singleton
-        if (Scheduler.instance != null){
+        if (Scheduler.instance){
             return Scheduler.instance;
         }
 
@@ -89,6 +90,17 @@ class Scheduler{
             true, true, false, true,
             true, 
         ])
+
+        // Effects
+        const effectSingleton = new Effect();
+        this.fxs.myReverb = effectSingleton.createEffect('Reverb', {
+            time: 0.1,
+            decay: 0.1,
+            reverse: false,
+            mix: 0.8
+        });
+
+        console.log(this.fxs.myReverb);
         
 
         this.sources.bus1 = new SourceOsc(this.audioContext, this.config, {type: 'square'});
@@ -128,10 +140,18 @@ class Scheduler{
     }
 
     testPlay(){
-        this.patterns.pattern1.play(this.timeOuts);
+        // this.patterns.pattern1.play(this.timeOuts);
         this.patterns.pattern2.play(this.timeOuts);
         this.patterns.pattern3.play(this.timeOuts);
+        this.patterns.pattern4.play(this.timeOuts);
         this.patterns.pattern5.play(this.timeOuts);
+    }
+
+    testPause(){
+        // Remove all timeouts
+        for (const i in this.timeOuts){
+            clearTimeout(this.timeOuts[i]);
+        }
     }
 
     clearNodes(){
@@ -145,6 +165,7 @@ class Scheduler{
             clearTimeout(this.timeOuts[i]);
         }
 
+        // Restart state
         this.timeOuts = []; 
         this.tablatures = {};
         this.fxs = getDefaultEffects(this.audioContext);
