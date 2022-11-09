@@ -14,10 +14,27 @@ class Pattern{
                 console.error( errorMessage );
                 return;
             }
+        }else{
+            console.error( "Tablature was not provided!" );
+            return;
         }
-
+        
         this.tablature = tablature;
         this.source = source;
+
+        // Calculo de la longitud :: utilizado para el agendamiento de los patrones
+        if (this.tablature.constructor.name === "MelodicTablature"){
+            let sm = 1;
+
+            for (const i in this.tablature.notes){
+                sm += this.tablature.notes[i].length;
+            }
+
+            this.length = sm;
+        }else{
+            // RhythmicTablature
+            this.length = this.tablature.notes.length;
+        }
     }    
 
     play(timeOuts){

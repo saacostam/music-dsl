@@ -11,8 +11,6 @@
 - Scheduling
 <br>
 
-- Class Loop Track
-- Class Sequential Track
 - Normalizar las mayusculas para tipo de efecto en constructor
 - Normalizar las mayusculas para efectos por defecto
 
