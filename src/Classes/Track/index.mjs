@@ -35,7 +35,7 @@ class TrackSequential{
         pattern.play(timeOuts);
 
         const delta = (60 / this.config.bpm)/this.gridDetail;
-        const nextCall = delta*length*1000;
+        const nextCall = delta*1000;
 
         const newTimeout = window.setTimeout( this.play.bind(this, timeOuts), nextCall);
         timeOuts.push(newTimeout);

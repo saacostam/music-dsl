@@ -30,19 +30,27 @@ class Scheduler{
 
     buildNodes(){
         this.config = {
-            bpm : 110,
+            bpm : 128,
         };
 
         this.tablatures.tab1 = new MelodicTablature();
         this.tablatures.tab1.setNotes([
-            {freq: 220, length: 1},
-            {freq: 0, length: 7},
-            {freq: 220, length: 1},
-            {freq: 0, length: 7},
-            {freq: 220, length: 1},
-            {freq: 0, length: 7},
-            {freq: 220, length: 1},
-            {freq: 0, length: 7},
+            {freq: 220, length: 2},
+            {freq: 0, length: 2},
+            {freq: 245, length: 2},
+            {freq: 0, length: 2},
+            {freq: 260, length: 2},
+            {freq: 0, length: 2},
+            {freq: 245, length: 2},
+            {freq: 0, length: 2},
+            {freq: 220, length: 2},
+            {freq: 0, length: 2},
+            {freq: 245, length: 2},
+            {freq: 0, length: 2},
+            {freq: 260, length: 2},
+            {freq: 0, length: 2},
+            {freq: 245, length: 2},
+            {freq: 0, length: 2},
         ]);
 
         this.tablatures.tab2 = new RhythmicTablature();
@@ -103,6 +111,7 @@ class Scheduler{
         this.patterns.pattern5 = new Pattern( this.tablatures.tab5, this.sources.bus5 );
 
         // Tracks
+        this.tracks.push( new TrackLoop( this.patterns.pattern1, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern2, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern4, this.config ) );
