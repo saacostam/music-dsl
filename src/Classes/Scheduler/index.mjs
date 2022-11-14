@@ -111,7 +111,7 @@ class Scheduler{
         this.patterns.pattern5 = new Pattern( this.tablatures.tab5, this.sources.bus5 );
 
         // Tracks
-        this.tracks.push( new TrackLoop( this.patterns.pattern1, this.config ) );
+        // this.tracks.push( new TrackLoop( this.patterns.pattern1, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern2, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern4, this.config ) );
