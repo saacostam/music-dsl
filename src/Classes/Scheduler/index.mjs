@@ -31,6 +31,7 @@ class Scheduler{
     buildNodes(){
         this.config = {
             bpm : 128,
+            fdjsakfljsad : "fdsjakf",
         };
 
         this.tablatures.tab1 = new MelodicTablature();
@@ -113,9 +114,9 @@ class Scheduler{
         // Tracks
         // this.tracks.push( new TrackLoop( this.patterns.pattern1, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern2, this.config ) );
-        this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
+        // this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern4, this.config ) );
-        this.tracks.push( new TrackLoop( this.patterns.pattern5, this.config ) );
+        // this.tracks.push( new TrackLoop( this.patterns.pattern5, this.config ) );}
     }
 
     testPlay(){

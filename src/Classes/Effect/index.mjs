@@ -25,6 +25,7 @@ class Effect{
             "Tremolo" : Pizzicato.Effects.Tremolo,
             "Reverb" : Pizzicato.Effects.Reverb,
             "Flanger" : Pizzicato.Effects.Flanger,
+            "Gain" : Pizzicato.Effects.Flanger,
         };
     }
 

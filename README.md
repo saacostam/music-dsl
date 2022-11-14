@@ -1,23 +1,12 @@
 # Music Programming Language 🎵
 
 # To-do
-- Config
-- Melodic Tablature
-- Rhythmic Tablature
-- Creating Effects
-- Source: Oscillator
-- Source: File
-- Pattern
-- Scheduling
+- UnderScore -> Hyphen
+- Add Gain Effect
+- Pasar a minusculas el tipo de oscilador
+- Considerar traducción E# y B#
+- Expresiones Aritmeticas
 <br>
-
-- Normalizar las mayusculas para tipo de efecto en constructor
-- Normalizar las mayusculas para efectos por defecto
-
-```
-If you simply call audioNode.disconnect() with no parameters, it will disconnect all the inputs to the node as well as all the outputs from it.
-https://stackoverflow.com/questions/47352775/what-is-the-best-way-to-destroy-an-audionode
-```
 
 # Documentation
 
@@ -37,8 +26,7 @@ https://stackoverflow.com/questions/47352775/what-is-the-best-way-to-destroy-an-
 
 ```
 Config {
-    bpm := 120,
-    detail := 4,
+    bpm : 120
 }
 ```
 
@@ -46,7 +34,7 @@ Config {
 
 ### Melodic Tablature
 ```
-Tablature <Name> : Melodic {A4.4, _.4, C#2.5, C#6.8}
+Tablature <Name> : Melodic {A4.4, -.4, C#2.5, C#6.8}
 ```
 
 ### Rhythmic Tablature
@@ -90,6 +78,7 @@ Pattern <Name> {<TablatureName> -> <SourceName>}
 
 ```
 Scheduler{
+    Loop <PatternName> ,
     Loop <PatternName> ,
     Sequential <PatternName> -> <PatternName> -> <PatternName> ,
 }
