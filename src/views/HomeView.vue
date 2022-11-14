@@ -4,8 +4,8 @@
       <MonacoEditor
         theme="vs-dark"
         :options="{}"
-        :width="400"
-        :height="600"
+        :width="width"
+        :height="height"
         :diffEditor="false"
         v-model:value="code"
       ></MonacoEditor>
@@ -36,6 +36,8 @@ export default {
   data(){
     return{
       scheduler : null,
+      width : 500,
+      height : 300,
       code: "// Your code goes here! 🐱‍🚀",
     }
   },
@@ -62,7 +64,7 @@ export default {
     // Monaco Editor Methods
     getText(){
       console.log(this.code);
-    }
+    },
   }
 }
 </script>
