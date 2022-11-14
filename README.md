@@ -6,6 +6,7 @@
 - Pasar a minusculas el tipo de oscilador
 - Considerar traducción E# y B#
 - Expresiones Aritmeticas
+- Añadir comentarios a documentación
 <br>
 
 # Documentation

@@ -31,7 +31,6 @@ class Scheduler{
     buildNodes(){
         this.config = {
             bpm : 128,
-            fdjsakfljsad : "fdsjakf",
         };
 
         this.tablatures.tab1 = new MelodicTablature();
