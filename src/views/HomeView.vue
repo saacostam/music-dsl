@@ -19,7 +19,7 @@
       <button @click="testPause" class="btn btn-warning d-block mx-auto m-3">Pause Sound</button>
       <button @click="clearNodes" class="btn btn-danger d-block mx-auto m-3">Clear nodes</button>
 
-      <button @click="getText" class="btn btn-dark d-block mx-auto m-3 mt-5">Log Text</button>
+      <button @click="getText" class="btn btn-light d-block mx-auto m-3 mt-5">Log Text</button>
     </div>
   </div>
 </template>
