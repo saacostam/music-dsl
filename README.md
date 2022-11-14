@@ -27,6 +27,8 @@ https://stackoverflow.com/questions/47352775/what-is-the-best-way-to-destroy-an-
     <li><a href="#tablature">Tablature</a></li>
     <li><a href="#audio-effects">Audio Effects</a></li>
     <li><a href="#source">Audio Source</a></li>
+    <li><a href="#pattern">Pattern</a></li>
+    <li><a href="#scheduler">Scheduler</a></li>
 </ul>
 
 <br>
@@ -76,12 +78,12 @@ Source <Name> : File("std/kick 1.mp3") {
 }
 ```
 
-### Pattern
+<h2 id="pattern">Pattern</h2>
 ```
 Pattern <Name> {<TablatureName> -> <SourceName>}
 ```
 
-### Scheduling
+<h2 id="scheduler">Scheduler</h2>
 ```
 Scheduler{
     Loop <PatternName> ,
