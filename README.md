@@ -88,7 +88,3 @@ Scheduler{
     Sequential <PatternName> -> <PatternName> -> <PatternName> ,
 }
 ```
-
-<style>
-a{color: white;}
-</style>
