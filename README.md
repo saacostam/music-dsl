@@ -79,11 +79,15 @@ Source <Name> : File("std/kick 1.mp3") {
 ```
 
 <h2 id="pattern">Pattern</h2>
+
+
 ```
 Pattern <Name> {<TablatureName> -> <SourceName>}
 ```
 
 <h2 id="scheduler">Scheduler</h2>
+
+
 ```
 Scheduler{
     Loop <PatternName> ,
