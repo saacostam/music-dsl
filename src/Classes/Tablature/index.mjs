@@ -29,10 +29,10 @@ class RhythmicTablature{
             for (const i in newNotes){
                 if (newNotes[i] === "."){
                     temp.push( true );
-                }else if (newNotes[i] === "_"){
+                }else if (newNotes[i] === "-"){
                     temp.push( false );
                 }else{
-                    console.error("Invalid characters on Rhythmic Tablature definition: expected <.> or <_>");
+                    console.error("Invalid characters on Rhythmic Tablature definition: expected <.> or <->");
                     return;
                 }
             }
