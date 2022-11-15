@@ -26,8 +26,9 @@
 <h2 id="configuration">Configuration</h2>
 
 ```
-Config {
-    bpm : 120
+Config : {
+    bpm : 120,
+    detail : 4,
 }
 ```
 
@@ -71,16 +72,16 @@ Source <Name> : File("std/kick 1.mp3") {
 
 
 ```
-Pattern <Name> {<TablatureName> -> <SourceName>}
+Pattern <Name> : {<TablatureName> -> <SourceName>}
 ```
 
 <h2 id="scheduler">Scheduler</h2>
 
 
 ```
-Scheduler{
+Scheduler : {
     Loop <PatternName> ,
     Loop <PatternName> ,
-    Sequential <PatternName> -> <PatternName> -> <PatternName> ,
+    Sequential <PatternName> -> <PatternName> -> <PatternName>,
 }
 ```
