@@ -54,16 +54,16 @@ class Scheduler{
         ]);
 
         this.tablatures.tab2 = new RhythmicTablature();
-        this.tablatures.tab2.setNotes(".___ .___ .___ .___ .___ .___ .___ .___");
+        this.tablatures.tab2.setNotes(".--- .--- .--- .--- .--- .--- .--- .---");
 
         this.tablatures.tab3 = new RhythmicTablature();
-        this.tablatures.tab3.setNotes("___. __._ ___. __._ ___. __._ ___. __._ ");
+        this.tablatures.tab3.setNotes("---. --.- ---. --.- ---. --.- ---. --.-");
 
         this.tablatures.tab4 = new RhythmicTablature();
-        this.tablatures.tab4.setNotes("__._ __._ __._ __._ __._ __._ __._ __._ ");
+        this.tablatures.tab4.setNotes("--.- --.- --.- --.- --.- --.- --.- --.-");
 
         this.tablatures.tab5 = new RhythmicTablature();
-        this.tablatures.tab5.setNotes("._.. ._.. ._.. ._.. ._.. ._.. ._.. ._.. ");
+        this.tablatures.tab5.setNotes(".-.. .-.. .-.. .-.. .-.. .-.. .-.. .-.. ");
 
         // Effects
         const effectSingleton = new Effect();
@@ -113,7 +113,7 @@ class Scheduler{
         // Tracks
         // this.tracks.push( new TrackLoop( this.patterns.pattern1, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern2, this.config ) );
-        // this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
+        this.tracks.push( new TrackLoop( this.patterns.pattern3, this.config ) );
         this.tracks.push( new TrackLoop( this.patterns.pattern4, this.config ) );
         // this.tracks.push( new TrackLoop( this.patterns.pattern5, this.config ) );}
     }

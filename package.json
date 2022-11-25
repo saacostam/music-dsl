@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "antlr4": "^4.11.0",
     "audio-effects": "^1.2.4",
     "fastidious-envelope-generator": "^2.0.0",
     "monaco-editor-vue3": "^0.1.6",

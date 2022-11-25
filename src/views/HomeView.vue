@@ -3,11 +3,10 @@
     <div id="monaco-editor">
       <MonacoEditor
         theme="vs-dark"
-        :options="{}"
-        :width="width"
-        :height="height"
+        :options="{layout: {}}"
         :diffEditor="false"
         v-model:value="code"
+        ref="editor"
       ></MonacoEditor>
     </div>
 
@@ -19,13 +18,14 @@
       <button @click="testPause" class="btn btn-warning d-block mx-auto m-3">Pause Sound</button>
       <button @click="clearNodes" class="btn btn-danger d-block mx-auto m-3">Clear nodes</button>
 
-      <button @click="getText" class="btn btn-light d-block mx-auto m-3 mt-5">Log Text</button>
+      <button @click="run" class="btn btn-light d-block mx-auto m-3 mt-5">Run</button>
     </div>
   </div>
 </template>
 
 <script>
 import Scheduler from '@/Classes/Scheduler/index.mjs';
+import run from '@/grammar/visitor.js';
 import MonacoEditor from 'monaco-editor-vue3'
 
 export default {
@@ -34,15 +34,23 @@ export default {
     MonacoEditor
   },
   data(){
+    const width = window.innerWidth;
+
+    const resizeHandler = (e)=>{
+      console.log(e.target.innterWidth);
+    };
+    resizeHandler.bind(this);
+
     return{
       scheduler : null,
-      width : 500,
-      height : 300,
       code: "// Your code goes here! 🐱‍🚀",
+      width,
+      resizeListener : addEventListener('resize', resizeHandler)
     }
   },
   unmounted(){
     if (this.scheduler){ this.scheduler.clearNodes();}
+    // clear resize listener
   },
   methods:{
     startAudioScheduler(){
@@ -62,8 +70,8 @@ export default {
     },
 
     // Monaco Editor Methods
-    getText(){
-      console.log(this.code);
+    run(){
+      run(this.code);
     },
   }
 }
@@ -71,13 +79,8 @@ export default {
 
 <style>
 #home{
-  display: flex;
-  flex-direction: row;
   height: 100vh;
   padding: 2rem;
-}
-#monaco-editor{
-  flex: 1;
 }
 #editor{
   width: 100%;
@@ -85,5 +88,6 @@ export default {
 }
 #ui{
   flex: 1;
+  flex-shrink: 0;
 }
 </style>
