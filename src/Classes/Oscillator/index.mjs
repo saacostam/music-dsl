@@ -11,7 +11,7 @@ class Oscillator{
         this.oscillator.connect(this.vca);
 
         const volumeAdjust = audioContext.createGain();
-        volumeAdjust.gain.setValueAtTime(0.25, audioContext.currentTime);
+        volumeAdjust.gain.setValueAtTime(0.1, audioContext.currentTime);
 
         // this.vca.connect(audioContext.destination);
 
@@ -22,7 +22,7 @@ class Oscillator{
         this.envelope = new EnvGen(audioContext, this.vca.gain);
         this.envelope.mode = 'ADSR';
         this.envelope.attackTime = 0.1;
-        this.envelope.releaseTime = 0.1;
+        this.envelope.releaseTime = 0.01;
 
         const t = audioContext.currentTime;
         this.envelope.gateOff(t);

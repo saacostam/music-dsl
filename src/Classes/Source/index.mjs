@@ -45,7 +45,7 @@ class SourceOsc{
         const delta = (60 / this.config.bpm)/this.gridDetail;
         
         const t = this.audioContext.currentTime;
-        const tf = t + delta*length;
+        const tf = t + (delta*length)*0.5;
 
         const nextCall = delta*length*1000;
 

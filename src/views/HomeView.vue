@@ -8,6 +8,7 @@
         height="500"
         v-model:value="code"
         ref="editor"
+        language = 'go'
       ></MonacoEditor>
     </div>
 
