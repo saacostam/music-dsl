@@ -74,7 +74,14 @@ class SourceFile{
         const {file} = srcConfig;
 
         const audioContextDelivery = new AudioContextDelivery();
-        const temp = audioContextDelivery.getAudioElement(file)
+
+        const temp = audioContextDelivery.getAudioElement(file);
+
+        // If audio file not found
+        if (temp === undefined){
+            console.error( `File ${file} was not found` );
+            return;
+        }
         
         this.audioElement = temp.audioElement;
         this.src = temp.mediaElementSource;

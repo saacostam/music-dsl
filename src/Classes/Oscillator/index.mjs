@@ -2,14 +2,22 @@ import EnvGen from 'fastidious-envelope-generator';
 
 class Oscillator{
     constructor(audioContext, {type}){
-        type = type || 'square';
+        type = type.toLowerCase();
         this.oscillator = audioContext.createOscillator();
         this.oscillator.type = type;
         
         this.vca = audioContext.createGain();
         
         this.oscillator.connect(this.vca);
-        this.vca.connect(audioContext.destination);
+
+        const volumeAdjust = audioContext.createGain();
+        volumeAdjust.gain.setValueAtTime(0.25, audioContext.currentTime);
+
+        // this.vca.connect(audioContext.destination);
+
+        this.vca.connect( volumeAdjust );
+
+        volumeAdjust.connect( audioContext.destination );
         
         this.envelope = new EnvGen(audioContext, this.vca.gain);
         this.envelope.mode = 'ADSR';

@@ -5,6 +5,7 @@
         theme="vs-dark"
         :options="{layout: {}}"
         :diffEditor="false"
+        height="500"
         v-model:value="code"
         ref="editor"
       ></MonacoEditor>
@@ -12,13 +13,14 @@
 
     <div id="ui">
       <h3 class="text-center p-4 text-white">MPL 🎵</h3>
-      <button @click="startAudioScheduler" class="btn btn-success d-block mx-auto m-3">Start audio</button>
-      <button @click="bulidNodes" class="btn btn-primary d-block mx-auto m-3">Build Nodes</button>
+      <button @click="run" class="btn btn-light d-block mx-auto m-3 mt-5">Run</button>
       <button @click="testPlay" class="btn btn-secondary d-block mx-auto m-3">Play Sound</button>
       <button @click="testPause" class="btn btn-warning d-block mx-auto m-3">Pause Sound</button>
-      <button @click="clearNodes" class="btn btn-danger d-block mx-auto m-3">Clear nodes</button>
 
-      <button @click="run" class="btn btn-light d-block mx-auto m-3 mt-5">Run</button>
+      <!-- <button @click="startAudioScheduler" class="btn btn-success d-block mx-auto m-3">Start audio</button> -->
+      <!-- <button @click="bulidNodes" class="btn btn-primary d-block mx-auto m-3">Build Nodes</button> -->
+      <!-- <button @click="clearNodes" class="btn btn-danger d-block mx-auto m-3">Clear nodes</button> -->
+
     </div>
   </div>
 </template>
@@ -27,6 +29,7 @@
 import Scheduler from '@/Classes/Scheduler/index.mjs';
 import run from '@/grammar/visitor.js';
 import MonacoEditor from 'monaco-editor-vue3'
+import defaultCode from './defaultCode.js'
 
 export default {
   name: 'HomeView',
@@ -43,7 +46,7 @@ export default {
 
     return{
       scheduler : null,
-      code: "// Your code goes here! 🐱‍🚀",
+      code: defaultCode,
       width,
       resizeListener : addEventListener('resize', resizeHandler)
     }
@@ -71,7 +74,14 @@ export default {
 
     // Monaco Editor Methods
     run(){
+      this.startAudioScheduler();
+      this.clearNodes();
+
+      console.clear();
       run(this.code);
+      console.log( new Scheduler() );
+
+      this.testPlay();
     },
   }
 }
@@ -89,5 +99,7 @@ export default {
 #ui{
   flex: 1;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
 }
 </style>

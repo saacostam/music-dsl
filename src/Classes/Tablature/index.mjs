@@ -1,3 +1,5 @@
+import keyToFreqMapping from './keyToFreq.js'
+
 class MelodicTablature{
     constructor(){
         // Arreglo de notas :: Corresponden con la frecuencia y a la longitud
@@ -7,6 +9,21 @@ class MelodicTablature{
 
     setNotes(newNotes){
         this.notes = newNotes;
+    }
+
+    parseNotes(notesString){
+        this.notes = [];
+
+        const notesPairs = notesString.split(',');
+        
+        for (let i = 0; i < notesPairs.length-1; i++){
+            const pair = notesPairs[i].split('.');
+
+            const freq = keyToFreqMapping[ pair[0] ];
+            const length = parseInt( pair[1], 10 ); 
+            
+            this.notes.push( {freq, length} )
+        }
     }
 
     getNotes(){
@@ -23,10 +40,9 @@ class RhythmicTablature{
 
     setNotes(newNotes){
         if (typeof newNotes === "string"){
-            newNotes = newNotes.replaceAll(" ", "");
             let temp = [];
 
-            for (const i in newNotes){
+            for (let i = 0; i < newNotes.length; i++){
                 if (newNotes[i] === "."){
                     temp.push( true );
                 }else if (newNotes[i] === "-"){

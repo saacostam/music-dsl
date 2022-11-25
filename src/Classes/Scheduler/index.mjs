@@ -28,6 +28,115 @@ class Scheduler{
         this.tracks = [];
     }
 
+    createMelodicTablature(id, notesString){
+        this.tablatures[id] = new MelodicTablature();
+        this.tablatures[id].parseNotes( notesString ); 
+    }
+
+    createRhythmicTablature(id, strokesString){
+        this.tablatures[id] = new RhythmicTablature();
+        this.tablatures[id].setNotes( strokesString );
+    }
+
+    createEffect( id, effectType, effectConfig ){
+        const effectSingleton = new Effect();
+        this.fxs[id] = effectSingleton.createEffect(effectType, effectConfig);
+    }
+
+    // Audio Sources
+    createOscSource(id, type, effectChainString){
+        this.sources[id] = new SourceOsc(this.audioContext, this.config, {type});
+
+        const effectIds = effectChainString.split('->');
+        let effectChain = []
+
+        for (let i=0; i < effectIds.length; i++){
+            const id = effectIds[i];
+
+            if ( this.fxs[ id ] !== undefined ){
+                effectChain.push( this.fxs[id] );
+            }else{
+                console.error( `Effect ${id} not created` )
+            }
+        }
+
+        this.sources[id].setFXChain(effectChain);
+    }
+
+    createFileSource(id, audioPath, effectChainString){
+        this.sources[id] = new SourceFile(this.audioContext, this.config, {file: audioPath});
+
+        const effectIds = effectChainString.split('->');
+        let effectChain = []
+
+        for (let i=0; i < effectIds.length; i++){
+            const id = effectIds[i];
+
+            if ( this.fxs[ id ] !== undefined ){
+                effectChain.push( this.fxs[id] );
+            }else{
+                console.error( `Effect ${id} not created` )
+            }
+        }
+
+        this.sources[id].setFXChain(effectChain);
+    }
+
+    createPattern(patternId, tabId, sourceId){
+        // Check if created
+        if (this.tablatures[tabId] === undefined){
+            console.error(`Tablature ${tabId} not created`);
+            return;
+        }
+
+        if (this.sources[sourceId] === undefined){
+            console.error(`Source ${sourceId} not created`);
+            return;
+        }
+
+        // Check if compatible
+        const tabClass = this.tablatures[tabId].constructor.name;
+        const sourceClass = this.sources[sourceId].constructor.name;
+
+        if ( (tabClass === 'RhythmicTablature' && sourceClass !== 'SourceFile') || (tabClass === 'MelodicTablature' && sourceClass !== 'SourceOsc')){
+            console.error(`Incompatible tablature and source type`);
+            return;
+        }
+
+        this.patterns[patternId] = new Pattern( this.tablatures[tabId], this.sources[sourceId]);
+    }
+
+    createTrackLoop(patternId){
+        // Check if pattern was created
+        const pattern = this.patterns[patternId];
+
+        if (pattern === undefined){
+            console.error(`Pattern ${patternId} not created`);
+            return;
+        }
+
+        this.tracks.push( new TrackLoop( pattern, this.config ) );
+    }
+
+    createSequentialLoop(patternIds){
+        // Check if pattern were created
+        let patterns = [];
+
+        for (let i = 0; i < patternIds.length; i++){
+            const patternId = patternIds[i].getText();
+            const pattern = this.patterns[ patternId ];
+
+            if (pattern === undefined){
+                console.error(`Pattern ${ patternId } not created`);
+                return;
+            }else{
+                patterns.push( pattern );
+            }
+        }
+
+        this.tracks.push( new TrackSequential(patterns, this.config) );
+    }
+
     buildNodes(){
         this.config = {
             bpm : 128,
@@ -54,16 +163,16 @@ class Scheduler{
         ]);
 
         this.tablatures.tab2 = new RhythmicTablature();
-        this.tablatures.tab2.setNotes(".--- .--- .--- .--- .--- .--- .--- .---");
+        this.tablatures.tab2.setNotes(".---.---.---.---.---.---.---.---");
 
         this.tablatures.tab3 = new RhythmicTablature();
-        this.tablatures.tab3.setNotes("---. --.- ---. --.- ---. --.- ---. --.-");
+        this.tablatures.tab3.setNotes("---.--.----.--.----.--.----.--.-");
 
         this.tablatures.tab4 = new RhythmicTablature();
-        this.tablatures.tab4.setNotes("--.- --.- --.- --.- --.- --.- --.- --.-");
+        this.tablatures.tab4.setNotes("--.---.---.---.---.---.---.---.-");
 
         this.tablatures.tab5 = new RhythmicTablature();
-        this.tablatures.tab5.setNotes(".-.. .-.. .-.. .-.. .-.. .-.. .-.. .-.. ");
+        this.tablatures.tab5.setNotes(".-...-...-...-...-...-...-...-..");
 
         // Effects
         const effectSingleton = new Effect();
