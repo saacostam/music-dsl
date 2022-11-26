@@ -36,6 +36,8 @@ Scheduler : {
     Loop mySnarePattern,
     Loop myHiHatPattern,
     Loop myShakerPattern,
+
+    // Loop counterMelody,
 }
 `
 
@@ -53,6 +55,7 @@ Tablature counterMelody : Melodic {
     E6.2, D6.2, D6.2, -.2,
 }
 
+
 Source topNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
 Source midNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
 Source lowNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
@@ -65,11 +68,16 @@ Pattern lowMelodicPattern : {lowNotes -> lowNotes}
 
 Pattern counterMelody : { counterMelody -> counterMelody }
 
+Tablature kick : Melodic {C6.1, -.3,}
+Source kick : Osc(Square){ lowpassfilter } 
+Pattern kick : { kick -> kick }
+
 Scheduler : {    
     Loop topMelodicPattern,
     Loop midMelodicPattern,
     Loop lowMelodicPattern,
     Loop counterMelody,
+    Loop kick,
 }
 `
 
@@ -106,13 +114,81 @@ Pattern lowMelodicPattern : {lowNotes -> lowNotes}
 
 Pattern counterMelody : { counterMelody -> counterMelody }
 
+Tablature kick : Melodic {C8.1, -.3,}
+Source kick : Osc(Square){ lowpassfilter } 
+Pattern kick : { kick -> kick }
+
 Scheduler : {    
     Loop topMelodicPattern,
     // Loop midMelodicPattern,
     // Loop lowMelodicPattern,
     Loop counterMelody,
+    Loop kick,
 }
-
 `
 
-export default example2;
+const example5 = `
+Config : {
+    bpm : 90,
+    detail : 4,
+}
+
+Tablature kickTab : Rhythmic {.---.---}
+Tablature snareTab : Rhythmic {----.---}
+Tablature hiHatTab : Rhythmic {--.- --.-}
+Tablature shakerTab : Rhythmic {..-.. .-.}
+
+Source myKick : File("std/Kick.wav") {}
+Source mySnare : File("std/Snare.wav"){}
+Source myHiHat : File("std/Hihat.wav"){}
+Source myShaker : File("std/Shaker.wav"){}
+
+Pattern myKickPattern: {kickTab -> myKick}
+Pattern mySnarePattern: {snareTab -> mySnare}
+Pattern myHiHatPattern: {hiHatTab -> myHiHat}
+Pattern myShakerPattern: {shakerTab -> myShaker}
+
+Tablature topNotes : Melodic { B3.16, G3.16, D3.16, C#3.16, B3.16, G3.16, D3.16, C#3.16, }
+Tablature midNotes : Melodic { D4.16, C4.16, F4.16, F4.16, D4.16, C4.16, F4.16, F4.16, }
+Tablature lowNotes : Melodic { F#3.16, E3.16, A3.16, A3.16, F#3.16, E3.16, A3.16, A3.16, }
+
+Tablature counterMelody : Melodic { 
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, G5.4, G5.4, F#5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, C#5.4, C#5.4, D5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    F#5.2, G5.2, A5.2, F#5.4, F#5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, C#5.4, C#5.4, D5.8,
+}
+
+Source topNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
+Source midNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
+Source lowNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
+
+Source counterMelody : Osc( Square ){ distortion -> pingPongDelay }
+
+Pattern topMelodicPattern : {topNotes -> topNotes}
+Pattern midMelodicPattern : {midNotes -> midNotes}
+Pattern lowMelodicPattern : {lowNotes -> lowNotes}
+
+Pattern counterMelody : { counterMelody -> counterMelody }
+
+Scheduler : {
+    // Aqui puedes definir tus tracks, mediante patrones
+    Loop myKickPattern,
+    Loop mySnarePattern,
+    Loop myHiHatPattern,
+    Loop myShakerPattern,
+
+    Loop topMelodicPattern,
+    // Loop midMelodicPattern,
+    // Loop lowMelodicPattern,
+    Loop counterMelody,
+}`
+
+export default example5;

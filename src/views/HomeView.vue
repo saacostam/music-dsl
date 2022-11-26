@@ -69,10 +69,10 @@ export default {
       if (this.scheduler){ this.scheduler.buildNodes();}
     },
     testPlay(){
-      if (this.scheduler){this.scheduler.testPlay();}
+      if (this.scheduler){this.scheduler.play();}
     },
     testPause(){
-      if (this.scheduler){this.scheduler.testPause();}
+      if (this.scheduler){this.scheduler.pause();}
     },
 
     // Monaco Editor Methods

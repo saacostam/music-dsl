@@ -1,5 +1,6 @@
 import AudioContextDelivery from './Classes/AudioContextDelivery/index.mjs';
 import audioFiles from './Classes/AudioContextDelivery/audioFiles.js';
+import createBuffer from '@/Classes/AudioContextDelivery/createBuffer.js';
 
 function createAudioElement(file){
     const audioElement = document.createElement('audio');
@@ -21,7 +22,9 @@ for (const i in audioFiles){
 
     const mediaElementSource = audioContext.createMediaElementSource( audioElement );
 
-    audioContextDelivery.addAudioElement(audioFile, audioElement, mediaElementSource);
+    const audioBuffer = createBuffer( audioContext, audioFile );
+
+    audioContextDelivery.addAudioElement(audioFile, audioElement, mediaElementSource, audioBuffer);
 }
 
 

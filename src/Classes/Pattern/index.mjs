@@ -22,24 +22,14 @@ class Pattern{
         this.tablature = tablature;
         this.source = source;
 
-        // Calculo de la longitud :: utilizado para el agendamiento de los patrones
-        if (this.tablature.constructor.name === "MelodicTablature"){
-            let sm = 1;
-
-            for (const i in this.tablature.notes){
-                sm += this.tablature.notes[i].length;
-            }
-
-            this.length = sm;
-        }else{
-            // RhythmicTablature
-            this.length = this.tablature.notes.length;
-        }
+        this.currentTab = 0;
     }    
 
-    play(timeOuts){
-        const tablature = [].concat( this.tablature.getNotes() );
-        this.source.play(tablature, timeOuts);
+    playNext(playTime){
+        const tab = this.tablature.notes[ this.currentTab ];
+
+        this.currentTab = ( this.currentTab + 1 )%this.tablature.notes.length;
+        return this.source.play( tab, playTime );
     }
 }
 

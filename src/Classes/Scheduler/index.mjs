@@ -18,8 +18,8 @@ class Scheduler{
 
         this.audioContext = new AudioContextDelivery().getAudioContext();
 
-        // Lista de timeOuts :: para poder limpiar los timeouts si se detiene la reproducción
-        this.timeOuts = []; 
+        this.playing = false;
+
         this.tablatures = {};
         this.fxs = getDefaultEffects(this.audioContext);
         this.sources = {};
@@ -143,18 +143,52 @@ class Scheduler{
         this.tracks.push( new TrackSequential(patterns, this.config) );
     }
 
-    testPlay(){
-        // Inicializar todos los tracks
-        for (const i in this.tracks){
-            this.tracks[i].play( this.timeOuts );
+
+
+
+
+
+    // Utils
+    play(){
+        this.playing = true;
+
+        this.schedule();
+    }
+
+    sync(){
+        const currentTime = this.audioContext.currentTime;
+
+        for (let i = 0; i < this.tracks.length; i++){
+            this.tracks[i].setEndTime(currentTime+0.5);
         }
     }
 
-    testPause(){
-        // Remover todos los timeouts
-        for (const i in this.timeOuts){
-            clearTimeout(this.timeOuts[i]);
+    pause(){
+        this.playing = false;
+    }
+
+    schedule(){
+        if (!this.playing){ return; }
+
+        const currentTime = this.audioContext.currentTime;
+
+        
+        for (let i = 0; i < this.tracks.length; i++){
+            const track = this.tracks[i];
+            const endTime = track.getEndTime();
+
+            // Sincronizar si ocurrio alguna interrupción
+            if (endTime - currentTime < 0){
+                this.sync();
+                console.log('sync');
+            }
+
+            if (currentTime + 1 >= endTime){
+                track.playNext();
+            }
         }
+
+        setTimeout( this.schedule.bind(this), 100);
     }
 
     clearNodes(){
@@ -163,13 +197,7 @@ class Scheduler{
             this.sources[i].clearNodes();
         }
 
-        // Remover todos los timeouts
-        for (const i in this.timeOuts){
-            clearTimeout(this.timeOuts[i]);
-        }
-
         // Reiniciar el estado
-        this.timeOuts = []; 
         this.tablatures = {};
         this.fxs = getDefaultEffects(this.audioContext);
         this.sources = {};

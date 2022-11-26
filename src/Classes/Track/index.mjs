@@ -3,18 +3,21 @@ class TrackLoop{
         this.pattern = pattern;
         this.config = config;
 
+        this.endTime = 0;
+
         this.gridDetail = 4;
     }
 
-    play(timeOuts){
-        const length = this.pattern.length;
-        this.pattern.play(timeOuts);
+    playNext(){
+        this.endTime = this.pattern.playNext( this.endTime );
+    }
 
-        const delta = (60 / this.config.bpm)/this.gridDetail;
-        const nextCall = delta*length*1000;
+    getEndTime(){
+        return this.endTime;
+    }
 
-        const newTimeout = window.setTimeout( this.play.bind(this, timeOuts), nextCall);
-        timeOuts.push(newTimeout);
+    setEndTime(newTime){
+        this.endTime = newTime;
     }
 }
 

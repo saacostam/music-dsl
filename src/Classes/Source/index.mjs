@@ -33,44 +33,19 @@ class SourceOsc{
         lastNode.connect(this.audioContext.destination);
     }
 
-    play(tablature, timeOuts){
-        this.playOscillator(tablature, timeOuts)
-    }
+    play( tab, playTime ){
+        const {freq, length} = tab;
 
-    playOscillator(tablature, timeOuts){
-        // if (tablature.length === 0){return;}
-
-        // const {freq, length} = tablature.shift();
-
-        // const delta = (60 / this.config.bpm)/this.gridDetail;
+        const delta = (60 / this.config.bpm)/this.gridDetail;
         
-        // const t = this.audioContext.currentTime;
-        // const tf = t + (delta*length)*0.5;
+        const t = playTime;
+        const tf = t + delta*length;
 
-        // const nextCall = delta*length*1000;
+        this.src.oscillator.frequency.setValueAtTime(freq, t);
+        this.src.envelope.gateOn(t);
+        this.src.envelope.gateOff(tf);
 
-        // this.src.oscillator.frequency.setValueAtTime(freq, t);
-        // this.src.envelope.gateOn(t);
-        // this.src.envelope.gateOff(tf);
-
-        // const newTimeout = window.setTimeout( this.playOscillator.bind(this, tablature, timeOuts), nextCall);
-        // timeOuts.push(newTimeout);
-
-        let startTime  = this.audioContext.currentTime;
-        for (let i = 0; i < tablature.length; i++){
-            const {freq, length} = tablature[i];
-
-            const delta = (60 / this.config.bpm)/this.gridDetail;
-            
-            const t = startTime;
-            const tf = t + (delta*length)*0.99;
-
-            startTime += delta*length;
-
-            this.src.oscillator.frequency.setValueAtTime(freq, t);
-            this.src.envelope.gateOn(t);
-            this.src.envelope.gateOff(tf);
-        }
+        return tf;
     }
 
     clearNodes(){
@@ -88,9 +63,9 @@ class SourceFile{
         this.audioContext = audioContext;
         
         const {file} = srcConfig;
+        this.file = file;
 
         const audioContextDelivery = new AudioContextDelivery();
-
         const temp = audioContextDelivery.getAudioElement(file);
 
         // If audio file not found
@@ -100,7 +75,6 @@ class SourceFile{
         }
         
         this.audioElement = temp.audioElement;
-        this.src = temp.mediaElementSource;
 
         this.config = generalConfig;
         this.audioNodes = [];
@@ -110,6 +84,18 @@ class SourceFile{
     }
 
     setFXChain(fxChain){
+        this.fxChain = fxChain;
+    }
+
+    getSrc(){
+        const audioContextDelivery = new AudioContextDelivery();
+        this.src = this.audioContext.createBufferSource();
+        this.src.buffer = audioContextDelivery.getBuffer( this.file );
+    }
+
+    applyFxChain(){
+        const fxChain = this.fxChain;
+
         if (this.src == null){
             console.error('Source element was not defined')
             return;
@@ -128,29 +114,20 @@ class SourceFile{
         lastNode.connect(this.audioContext.destination);
     }
 
-    play(tablature, timeOuts){
-        this.playFile(tablature, timeOuts);
-    }
-
-    playFile(tablature, timeOuts){
-        if (tablature.length === 0){return;}
-
-        const hit = tablature.shift();
+    play(tab, playTime){
+        this.getSrc();
+        this.applyFxChain();
 
         const delta = (60 / this.config.bpm)/this.gridDetail;
         
-        const t = this.audioContext.currentTime;
+        const t = playTime;
         const tf = t + delta;
 
-        const nextCall = delta*1000;
-
-        if (hit){
-            this.audioElement.currentTime = 0;
-            this.audioElement.play();
+        if (tab){
+            this.src.start( playTime, 0 );
         }
 
-        const newTimeout = window.setTimeout( this.playFile.bind(this, tablature, timeOuts), nextCall);
-        timeOuts.push(newTimeout);
+        return tf;
     }
 
     clearNodes(){
