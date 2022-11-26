@@ -8,16 +8,15 @@ class Oscillator{
         
         this.vca = audioContext.createGain();
         
-        this.oscillator.connect(this.vca);
-
         const volumeAdjust = audioContext.createGain();
         volumeAdjust.gain.setValueAtTime(0.1, audioContext.currentTime);
 
-        // this.vca.connect(audioContext.destination);
+        // this.oscillator.connect(this.vca);
+        this.oscillator.connect(volumeAdjust)
 
-        this.vca.connect( volumeAdjust );
-
-        volumeAdjust.connect( audioContext.destination );
+        volumeAdjust.connect(  this.vca );
+                
+        this.vca.connect(audioContext.destination);
         
         this.envelope = new EnvGen(audioContext, this.vca.gain);
         this.envelope.mode = 'ADSR';

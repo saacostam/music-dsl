@@ -9,9 +9,10 @@
         v-model:value="code"
         ref="editor"
         language = 'go'
+        :key="key"
       ></MonacoEditor>
     </div>
-
+    
     <div id="ui">
       <h3 class="text-center p-4 text-white">MPL 🎵</h3>
       <button @click="run" class="btn btn-light d-block mx-auto m-3 mt-5">Run</button>
@@ -29,8 +30,8 @@
 <script>
 import Scheduler from '@/Classes/Scheduler/index.mjs';
 import run from '@/grammar/visitor.js';
-import MonacoEditor from 'monaco-editor-vue3'
-import defaultCode from './defaultCode.js'
+import MonacoEditor from 'monaco-editor-vue3';
+import defaultCode from './defaultCode.js';
 
 export default {
   name: 'HomeView',
@@ -41,15 +42,16 @@ export default {
     const width = window.innerWidth;
 
     const resizeHandler = (e)=>{
-      console.log(e.target.innterWidth);
+      this.key = !this.key;
     };
     resizeHandler.bind(this);
+    addEventListener('resize', resizeHandler)
 
     return{
       scheduler : null,
       code: defaultCode,
       width,
-      resizeListener : addEventListener('resize', resizeHandler)
+      key : true,
     }
   },
   unmounted(){

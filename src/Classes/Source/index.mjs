@@ -38,23 +38,39 @@ class SourceOsc{
     }
 
     playOscillator(tablature, timeOuts){
-        if (tablature.length === 0){return;}
+        // if (tablature.length === 0){return;}
 
-        const {freq, length} = tablature.shift();
+        // const {freq, length} = tablature.shift();
 
-        const delta = (60 / this.config.bpm)/this.gridDetail;
+        // const delta = (60 / this.config.bpm)/this.gridDetail;
         
-        const t = this.audioContext.currentTime;
-        const tf = t + (delta*length)*0.5;
+        // const t = this.audioContext.currentTime;
+        // const tf = t + (delta*length)*0.5;
 
-        const nextCall = delta*length*1000;
+        // const nextCall = delta*length*1000;
 
-        this.src.oscillator.frequency.setValueAtTime(freq, t);
-        this.src.envelope.gateOn(t);
-        this.src.envelope.gateOff(tf);
+        // this.src.oscillator.frequency.setValueAtTime(freq, t);
+        // this.src.envelope.gateOn(t);
+        // this.src.envelope.gateOff(tf);
 
-        const newTimeout = window.setTimeout( this.playOscillator.bind(this, tablature, timeOuts), nextCall);
-        timeOuts.push(newTimeout);
+        // const newTimeout = window.setTimeout( this.playOscillator.bind(this, tablature, timeOuts), nextCall);
+        // timeOuts.push(newTimeout);
+
+        let startTime  = this.audioContext.currentTime;
+        for (let i = 0; i < tablature.length; i++){
+            const {freq, length} = tablature[i];
+
+            const delta = (60 / this.config.bpm)/this.gridDetail;
+            
+            const t = startTime;
+            const tf = t + (delta*length)*0.99;
+
+            startTime += delta*length;
+
+            this.src.oscillator.frequency.setValueAtTime(freq, t);
+            this.src.envelope.gateOn(t);
+            this.src.envelope.gateOff(tf);
+        }
     }
 
     clearNodes(){

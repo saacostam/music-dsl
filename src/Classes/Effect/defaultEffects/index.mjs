@@ -7,19 +7,19 @@ function getDefaultEffects(audioContext){
 
     return {
         delay : new Pizzicato.Effects.Delay({
-            feedback: 0.2,
-            time: 0.1,
+            feedback: 0.1,
+            time: 0.3,
             mix: 0.5
         }),
         distortion : new Pizzicato.Effects.Distortion({
             gain: 1
         }),
         lowpassfilter : new Pizzicato.Effects.LowPassFilter({
-            frequency: 500,
+            frequency: 400,
             peak: 10
         }),
         highpassfilter : new Pizzicato.Effects.HighPassFilter({
-            frequency: 200,
+            frequency: 1000,
             peak: 10
         }),
         bitcrusher : new tuna.Bitcrusher({

@@ -24,6 +24,40 @@ for (const i in audioFiles){
     audioContextDelivery.addAudioElement(audioFile, audioElement, mediaElementSource);
 }
 
+
+
+
+
+// Console Setup
+
+const   _error = console.error,
+        _clear = console.clear;
+
+console.error = function() {
+    const myConsole = document.getElementById('console-error');
+
+    let newLog = '';
+    for (let i = 0; i < arguments.length; i++){
+        newLog += arguments[i];
+    }
+
+    myConsole.innerText += newLog + '\n';
+
+    return _error.apply(console, arguments);
+};
+
+console.clear = function() {
+    const myConsole = document.getElementById('console-error');
+    myConsole.innerText = '';
+
+    return _clear.apply(console, arguments);
+};
+
+
+
+
+
+
 // Vue Setup
 
 import { createApp } from 'vue'
