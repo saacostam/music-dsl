@@ -25,23 +25,30 @@ class TrackSequential{
     constructor(patterns, config){
         this.patterns = patterns;
         this.currentPattern = 0;
+
+        this.count = this.patterns[this.currentPattern].getLength();
+
         this.config = config;
 
         this.gridDetail = 4;
     }
 
-    play(timeOuts){
-        const pattern = this.patterns[this.currentPattern];
-        this.currentPattern = (this.currentPattern + 1)%this.patterns.length;
+    playNext(){
+        this.endTime = this.patterns[this.currentPattern].playNext( this.endTime );
+        this.count -= 1;
 
-        const length = pattern.length;
-        pattern.play(timeOuts);
+        if (this.count  === 0){
+            this.currentPattern = (this.currentPattern + 1)%this.patterns.length;
+            this.count = this.patterns[ this.currentPattern ].getLength();
+        }
+    }
 
-        const delta = (60 / this.config.bpm)/this.gridDetail;
-        const nextCall = delta*length*1000;
+    getEndTime(){
+        return this.endTime;
+    }
 
-        const newTimeout = window.setTimeout( this.play.bind(this, timeOuts), nextCall);
-        timeOuts.push(newTimeout);
+    setEndTime(newTime){
+        this.endTime = newTime;
     }
 }
 

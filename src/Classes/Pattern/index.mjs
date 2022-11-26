@@ -31,6 +31,10 @@ class Pattern{
         this.currentTab = ( this.currentTab + 1 )%this.tablature.notes.length;
         return this.source.play( tab, playTime );
     }
+
+    getLength(){
+        return this.tablature.notes.length;
+    }
 }
 
 export default Pattern;
