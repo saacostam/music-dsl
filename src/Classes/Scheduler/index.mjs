@@ -159,7 +159,7 @@ class Scheduler{
         const currentTime = this.audioContext.currentTime;
 
         for (let i = 0; i < this.tracks.length; i++){
-            this.tracks[i].setEndTime(currentTime+0.5);
+            this.tracks[i].setEndTime(currentTime+1);
         }
     }
 
@@ -168,11 +168,10 @@ class Scheduler{
     }
 
     schedule(){
-        if (!this.playing){ return; }
+        if (!this.playing){return;}
 
         const currentTime = this.audioContext.currentTime;
 
-        
         for (let i = 0; i < this.tracks.length; i++){
             const track = this.tracks[i];
             const endTime = track.getEndTime();
@@ -180,7 +179,7 @@ class Scheduler{
             // Sincronizar si ocurrio alguna interrupción
             if (endTime - currentTime < 0){
                 this.sync();
-                console.log('sync');
+                console.error('out-of-sync 🤔: please re-run the script or re-load page!');
             }
 
             if (currentTime + 1 >= endTime){

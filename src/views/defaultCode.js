@@ -129,14 +129,14 @@ Scheduler : {
 
 const example5 = `
 Config : {
-    bpm : 90,
+    bpm : 128,
     detail : 4,
 }
 
 Tablature kickTab : Rhythmic {.---.---}
 Tablature snareTab : Rhythmic {----.---}
 Tablature hiHatTab : Rhythmic {--.- --.-}
-Tablature shakerTab : Rhythmic {..-.. .-.}
+Tablature shakerTab : Rhythmic {.-.. .-..}
 
 Source myKick : File("std/Kick.wav") {}
 Source mySnare : File("std/Snare.wav"){}
@@ -150,7 +150,7 @@ Pattern myShakerPattern: {shakerTab -> myShaker}
 
 Tablature topNotes : Melodic { B3.16, G3.16, D3.16, C#3.16, B3.16, G3.16, D3.16, C#3.16, }
 Tablature midNotes : Melodic { D4.16, C4.16, F4.16, F4.16, D4.16, C4.16, F4.16, F4.16, }
-Tablature lowNotes : Melodic { F#3.16, E3.16, A3.16, A3.16, F#3.16, E3.16, A3.16, A3.16, }
+Tablature lowNotes : Melodic { F#3.16, D3.16, A3.16, A3.16,  F#3.16, D3.16, A3.16, A3.16, }
 
 Tablature counterMelody : Melodic { 
     D5.2, E5.4, F#5.4, D5.4,
@@ -187,7 +187,8 @@ Scheduler : {
 
     Loop topMelodicPattern,
     // Loop midMelodicPattern,
-    // Loop lowMelodicPattern,
+    Loop lowMelodicPattern,
+
     Loop counterMelody,
 }`
 

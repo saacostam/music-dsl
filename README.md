@@ -1,25 +1,10 @@
 # Music Programming Language 🎵
 
 # To-do
-- UnderScore -> Hyphen
 - Add Gain Effect
-- Pasar a minusculas el tipo de oscilador
-- Considerar traducción E# y B#
-- Expresiones Aritmeticas
-- Añadir comentarios a documentación
 <br>
 
 # Documentation
-
-## Contents
-<ul>
-    <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#tablature">Tablature</a></li>
-    <li><a href="#audio-effects">Audio Effects</a></li>
-    <li><a href="#source">Audio Source</a></li>
-    <li><a href="#pattern">Pattern</a></li>
-    <li><a href="#scheduler">Scheduler</a></li>
-</ul>
 
 <br>
 

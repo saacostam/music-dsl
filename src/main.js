@@ -39,7 +39,7 @@ const   _error = console.error,
 console.error = function() {
     const myConsole = document.getElementById('console-error');
 
-    let newLog = '';
+    let newLog = '❌ ';
     for (let i = 0; i < arguments.length; i++){
         newLog += arguments[i];
     }
@@ -51,7 +51,7 @@ console.error = function() {
 
 console.clear = function() {
     const myConsole = document.getElementById('console-error');
-    myConsole.innerText = '';
+    myConsole.innerText = 'Running...\n';
 
     return _clear.apply(console, arguments);
 };

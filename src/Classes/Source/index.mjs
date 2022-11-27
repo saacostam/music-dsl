@@ -30,7 +30,9 @@ class SourceOsc{
         }
 
         this.audioNodes.push( lastNode );
-        lastNode.connect(this.audioContext.destination);
+
+        const audioContextDelivery = new AudioContextDelivery();
+        lastNode.connect( audioContextDelivery.getDestination() );
     }
 
     play( tab, playTime ){
@@ -111,7 +113,9 @@ class SourceFile{
         }
 
         this.audioNodes.push( lastNode );
-        lastNode.connect(this.audioContext.destination);
+
+        const audioContextDelivery = new AudioContextDelivery();
+        lastNode.connect( audioContextDelivery.getDestination() );
     }
 
     play(tab, playTime){

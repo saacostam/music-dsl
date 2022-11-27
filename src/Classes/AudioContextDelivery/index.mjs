@@ -7,6 +7,12 @@ class AudioContextDelivery{
         AudioContextDelivery.instance = this;
 
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        this.analyser = this.audioContext.createAnalyser();
+        this.analyser.connect( this.audioContext.destination );
+        this.analyser.fftSize = 64;
+        this.bufferLength = this.analyser.frequencyBinCount;
+
         this.audioElements = {};
 
         this.buffers = {};
@@ -14,6 +20,17 @@ class AudioContextDelivery{
 
     getAudioContext(){
         return this.audioContext;
+    }
+
+    getDestination(){
+        return this.analyser;
+    }
+
+    getDataArray(){
+        const dataArray = new Uint8Array(this.bufferLength);
+        this.analyser.getByteFrequencyData(dataArray);
+        
+        return dataArray;
     }
 
     storeBuffer(audioFile, buffer){
