@@ -26,7 +26,7 @@
           <a class=" dropdown-toggle" href="#" role="button" id="load-examples-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Load Examples</a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="load-examples-toggle">
-            <span class="dropdown-item">Action</span>
+            <span class="dropdown-item" v-for="value, key, index in this.examples" @click="loadCode(value)">{{key}}</span>
           </div>
         </div>
       </div>
@@ -60,8 +60,8 @@ import run from '@/grammar/visitor.js';
 import MonacoEditor from 'monaco-editor-vue3';
 import defaultCode from './defaultCode.js';
 import audioFiles from '@/Classes/AudioContextDelivery/audioFiles';
-import AudioContextDelivery from '@/Classes/AudioContextDelivery/index.mjs';
 import updateVisualizer from '@/utils/canvasDraw.js'
+import {examples} from '@/views/defaultCode.js';
 
 export default {
   name: 'HomeView',
@@ -85,6 +85,7 @@ export default {
       playing: false,
       consoleVisible: false,
       audioFiles,
+      examples,
     }
   },
   mounted(){
@@ -138,6 +139,9 @@ export default {
     previewAudio(audioFile){
       const audioSrc = new Audio(audioFile);
       audioSrc.play();
+    },
+    loadCode(newCode){
+      this.code = newCode;
     }
   }
 }

@@ -14,6 +14,10 @@ module.exports = {
     ]
   },
 
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/music-dsl/'
+    : '/',
+
   chainWebpack: config => {
     config.optimization
       .minimizer('terser')

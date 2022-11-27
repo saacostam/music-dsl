@@ -2,9 +2,11 @@
   "name": "msc-pl",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/saacostam/music-dsl",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
     "antlr4": "^4.11.0",
@@ -23,6 +25,7 @@
     "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "vue-gh-pages": "^1.19.1"
   }
 }
