@@ -6,8 +6,8 @@
   
       </div>
       <button @click="toggleRun" class="btn btn-primary d-block mx-auto w-100 mb-2">
-        <img v-if="this.playing" src="/icons/pause-fill.svg">
-        <img v-else src="/icons/play-fill.svg" >
+        <img v-if="this.playing" src="icons/pause-fill.svg">
+        <img v-else src="icons/play-fill.svg" >
       </button>
 
       <div class="tab">
@@ -44,8 +44,8 @@
         <div class="tab">
           <h6>Console</h6>
           <button id="console-toggle" @click="this.toggleConsole">
-            <img v-if="this.consoleVisible" src="/icons/chevron-down.svg">
-            <img v-else src="/icons/chevron-up.svg" >
+            <img v-if="this.consoleVisible" src="icons/chevron-down.svg">
+            <img v-else src="icons/chevron-up.svg" >
           </button>
         </div>
         <div id="console-error" :class="{'visible':this.consoleVisible}"></div>
