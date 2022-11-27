@@ -14,13 +14,7 @@ module.exports = {
     ]
   },
 
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/music-dsl/'
-    : '/',
-
-  assetsDir: process.env.NODE_ENV === 'production'
-    ? './music-dsl/'
-    : './',
+  publicPath: './',
 
   chainWebpack: config => {
     config.optimization
