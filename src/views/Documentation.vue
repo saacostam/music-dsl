@@ -1,7 +1,7 @@
 <template>
     <div id="documentation" class="container">
         
-        <h1 id="tunecode" style="font-size: 4rem;"><span style="color: #007bff">TUNE</span>CODE</h1>
+        <h1 id="tunecode" style="font-size: 4rem; text-align: center; margin: 2rem;"><span style="color: #007bff">TUNE</span>CODE</h1>
 
         <p>TuneCode es un lenguaje de programación web para la creación de música, orientado a personas con experiencia en el uso de software dedicado a la producción musical (DAW: Digital Audio Workstations). </p>
         <p>Usando conceptos análogos a los DAW&#39;s, TuneCode permite la reproducción de melodías mediante osciladores básicos, el agendamiento de samples y la aplicación de efectos sobre dichas fuentes de sonido.</p>
@@ -201,6 +201,6 @@ pre{
 }
 
 code{
-    color: #46a0ff;
+    color: #a3cfff;
 }
 </style>
