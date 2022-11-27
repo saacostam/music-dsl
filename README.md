@@ -8,7 +8,7 @@ A continuación se provee la documentación básica del lenguaje, en donde se ex
 
 Si ya conoces el lenguaje, puedes acceder al editor web <a href="https://saacostam.github.io/music-dsl/#/" target="_blank">aquí</a>.
 
-# Documentation
+# Documentación
 
 <h2 id="program-structure">Estructura de un Programa</h2>
 
@@ -33,7 +33,7 @@ En el bloque Scheduler, se deben especificar los patrones a reproducir. Su decla
 
 <hr>
 
-<h2 id="tablature">Tablature</h2>
+<h2 id="tablature">Tablatura</h2>
 
 Las tablaturas se utilizan para definir lo que deben reproducir los instrumentos (o fuentes de sonido) en la composición. Pueden especificar segmentos melódicos o rítmicos, por lo cual se manejan dos tipos de tablaturas, descritos a continuación.
 
