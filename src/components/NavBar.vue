@@ -1,6 +1,8 @@
 <template>
     <nav class="navbar navbar-dark">
-        <span class="navbar-brand mb-0" style="font-size: 1rem; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><span style="color: #007bff">TUNE</span>CODE</span>
+        <span class="navbar-brand mb-0" style="font-size: 1rem; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+            <span style="color: #007bff">TUNE</span>CODE
+        </span>
     </nav>
 </template>
 
