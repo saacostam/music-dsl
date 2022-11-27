@@ -59,7 +59,34 @@ function getDefaultEffects(audioContext){
             depth: 0.1,
             feedback: 0.5,
             mix: 0.5
-        })
+        }),
+        gain0_1 : new tuna.Gain({
+            gain : 0.1
+        }),
+        gain0_2 : new tuna.Gain({
+            gain : 0.2
+        }),
+        gain0_3 : new tuna.Gain({
+            gain : 0.3
+        }),
+        gain0_5 : new tuna.Gain({
+            gain : 0.5
+        }),
+        gain0_8 : new tuna.Gain({
+            gain : 0.8
+        }),
+        gain1_2 : new tuna.Gain({
+            gain : 1.2
+        }),
+        gain1_3 : new tuna.Gain({
+            gain : 1.3
+        }),
+        gain1_5 : new tuna.Gain({
+            gain : 1.5
+        }),
+        gain1_8 : new tuna.Gain({
+            gain : 1.8
+        }),
     }
 }
 

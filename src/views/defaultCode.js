@@ -170,7 +170,7 @@ Source topNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
 Source midNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
 Source lowNotes : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
 
-Source counterMelody : Osc( Square ){ distortion -> pingPongDelay }
+Source counterMelody : Osc( Square ){ distortion -> pingPongDelay -> gain0_8 }
 
 Pattern topMelodicPattern : {topNotes -> topNotes}
 Pattern midMelodicPattern : {midNotes -> midNotes}
