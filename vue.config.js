@@ -19,8 +19,8 @@ module.exports = {
     : '/',
 
   assetsDir: process.env.NODE_ENV === 'production'
-    ? '/music-dsl/'
-    : '/',
+    ? './music-dsl/'
+    : './',
 
   chainWebpack: config => {
     config.optimization
