@@ -165,12 +165,60 @@ Scheduler : {
     Loop perc,
 }`
 
+const song = `// Without You - Avicii 🎵
+
+Config : {bpm : 135, detail : 4,}
+
+Tablature bassNotes : Melodic { B3.16, G3.16, D3.16, C#3.16, B3.16, G3.16, D3.16, C#3.16, }
+
+Tablature mainMelody : Melodic { 
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, G5.4, G5.4, F#5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, C#5.4, C#5.4, D5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    F#5.2, G5.2, A5.2, F#5.4, F#5.8,
+
+    D5.2, E5.4, F#5.4, D5.4,
+    D5.2, C#5.4, C#5.4, D5.8,
+}
+
+Tablature kickTab : Rhythmic {.--- .---}
+Tablature snareTab : Rhythmic {---- .---}
+Tablature hiHatTab : Rhythmic {--.- --.-}
+
+Source bass : Osc( Sawtooth ){ reverb -> pingPongDelay -> lowpassfilter }
+Source melody : Osc( Square ){ distortion -> pingPongDelay -> gain0_8 }
+
+Source myKick : File("std/Kick.wav") {}
+Source mySnare : File("std/Snare.wav"){ reverb -> highpassfilter }
+Source myHiHat : File("std/Hihat.wav"){ reverb -> highpassfilter }
+
+Pattern bassPattern : {bassNotes -> bass}
+Pattern mainMelody : { mainMelody -> melody }
+
+Pattern myKickPattern: {kickTab -> myKick}
+Pattern mySnarePattern: {snareTab -> mySnare}
+Pattern myHiHatPattern: {hiHatTab -> myHiHat}
+
+Scheduler : {    
+    Loop mainMelody,
+    Loop bassPattern,
+
+    Loop myKickPattern,
+    Loop mySnarePattern,
+    Loop myHiHatPattern,
+}`
+
 const examples = {
     'Error Sintáctico' : syntaxError,
     'Error Semántico' : semanticError,
     'Osciladores' : melody,
     'Archivos de Audio' : samples,
     'Efectos' : effect,
+    'Canción' : song,
 }
 
 export {examples};
