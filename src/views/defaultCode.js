@@ -165,7 +165,10 @@ Scheduler : {
     Loop perc,
 }`
 
-const song = `// Without You - Avicii 🎵
+const song = `// Run the code by clicking the blue play button on the left
+// Use the "load examples" drop-down menu to check other examples 
+
+// Without You - Avicii 🎵
 
 Config : {bpm : 135, detail : 4,}
 
@@ -222,4 +225,4 @@ const examples = {
 }
 
 export {examples};
-export default defaultCode;
+export default song;
