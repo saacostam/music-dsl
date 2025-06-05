@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark">
-    <span
+    <router-link
       class="navbar-brand mb-0"
       style="
         font-size: 1rem;
@@ -8,13 +8,15 @@
           Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
           sans-serif;
       "
+      to="/"
     >
       <span style="color: #007bff">TUNE</span>CODE
-    </span>
+    </router-link>
 
     <div style="margin-left: auto; font-size: 0.8rem; color: white">
       <router-link to="/" style="margin-right: 1rem">Editor</router-link>
-      <router-link to="documentation">Documentation</router-link>
+      <router-link to="documentation" style="margin-right: 1rem">Documentation</router-link>
+      <a href="https://saacostam.github.io" target="_blank">More Projects</a>
     </div>
   </nav>
 </template>
@@ -32,5 +34,8 @@ nav {
 a {
   text-decoration: none;
   color: white;
+}
+a:hover {
+  opacity: 80%;
 }
 </style>
