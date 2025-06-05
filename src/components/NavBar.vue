@@ -6,7 +6,7 @@
 
         <div style="margin-left: auto; font-size: 0.8rem; color: white;">
             <router-link to="/" style="margin-right: 1rem;">Editor</router-link>
-            <router-link to="documentation">Documentación</router-link>
+            <router-link to="documentation">Documentation</router-link>
         </div>
     </nav>
 </template>
