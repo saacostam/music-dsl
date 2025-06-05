@@ -13,7 +13,8 @@ module.exports = {
       }),
     ],
   },
-
+  
+  outputDir: "docs",
   publicPath: "./",
 
   chainWebpack: (config) => {
