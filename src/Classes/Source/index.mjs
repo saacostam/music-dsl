@@ -1,144 +1,144 @@
 import Oscillator from "../Oscillator/index.mjs";
-import AudioContextDelivery from '../AudioContextDelivery/index.mjs';
+import AudioContextDelivery from "../AudioContextDelivery/index.mjs";
 
-class SourceOsc{
-    constructor(audioContext, generalConfig, srcConfig){
-        this.audioNodes = [];
+class SourceOsc {
+  constructor(audioContext, generalConfig, srcConfig) {
+    this.audioNodes = [];
 
-        this.audioContext = audioContext;
-        this.src = new Oscillator(this.audioContext, srcConfig);;
+    this.audioContext = audioContext;
+    this.src = new Oscillator(this.audioContext, srcConfig);
 
-        this.config = generalConfig;
+    this.config = generalConfig;
 
-        // HardCoded
-        this.gridDetail = 4;
+    // HardCoded
+    this.gridDetail = 4;
+  }
+
+  setFXChain(fxChain) {
+    if (this.src == null) {
+      console.error("Source element was not defined");
+      return;
     }
 
-    setFXChain(fxChain){
-        if (this.src == null){
-            console.error('Source element was not defined')
-            return;
-        }
+    let lastNode = this.src.vca;
 
-        let lastNode = this.src.vca;
+    for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex += 1) {
+      this.audioNodes.push(lastNode);
+      lastNode.connect(fxChain[fxIndex]);
 
-        for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex+=1){
-            this.audioNodes.push( lastNode );
-            lastNode.connect( fxChain[fxIndex] );
-
-            lastNode = fxChain[fxIndex];
-        }
-
-        this.audioNodes.push( lastNode );
-
-        const audioContextDelivery = new AudioContextDelivery();
-        lastNode.connect( audioContextDelivery.getDestination() );
+      lastNode = fxChain[fxIndex];
     }
 
-    play( tab, playTime ){
-        const {freq, length} = tab;
+    this.audioNodes.push(lastNode);
 
-        const delta = (60 / this.config.bpm)/this.gridDetail;
-        
-        const t = playTime;
-        const tf = t + delta*length;
+    const audioContextDelivery = new AudioContextDelivery();
+    lastNode.connect(audioContextDelivery.getDestination());
+  }
 
-        this.src.oscillator.frequency.setValueAtTime(freq, t);
-        this.src.envelope.gateOn(t);
-        this.src.envelope.gateOff(tf);
+  play(tab, playTime) {
+    const { freq, length } = tab;
 
-        return tf;
+    const delta = 60 / this.config.bpm / this.gridDetail;
+
+    const t = playTime;
+    const tf = t + delta * length;
+
+    this.src.oscillator.frequency.setValueAtTime(freq, t);
+    this.src.envelope.gateOn(t);
+    this.src.envelope.gateOff(tf);
+
+    return tf;
+  }
+
+  clearNodes() {
+    for (let i = 0; i < this.audioNodes.length; i++) {
+      this.audioNodes[i].disconnect();
     }
-
-    clearNodes(){
-        for (let i = 0; i < this.audioNodes.length; i++){
-            this.audioNodes[i].disconnect();
-        }
-        this.src.clearNodes();
-    }
+    this.src.clearNodes();
+  }
 }
 
-class SourceFile{
-    constructor(audioContext, generalConfig, srcConfig){
-        this.audioNodes = [];
+class SourceFile {
+  constructor(audioContext, generalConfig, srcConfig) {
+    this.audioNodes = [];
 
-        this.audioContext = audioContext;
-        
-        const {file} = srcConfig;
-        this.file = file;
+    this.audioContext = audioContext;
 
-        const audioContextDelivery = new AudioContextDelivery();
-        const temp = audioContextDelivery.getAudioElement(file);
+    const { file } = srcConfig;
+    this.file = file;
 
-        // If audio file not found
-        if (temp === undefined){
-            console.error( `File ${file} was not found` );
-            return;
-        }
-        
-        this.audioElement = temp.audioElement;
+    const audioContextDelivery = new AudioContextDelivery();
+    const temp = audioContextDelivery.getAudioElement(file);
 
-        this.config = generalConfig;
-        this.audioNodes = [];
-
-        // HardCoded
-        this.gridDetail = 4;
+    // If audio file not found
+    if (temp === undefined) {
+      console.error(`File ${file} was not found`);
+      return;
     }
 
-    setFXChain(fxChain){
-        this.fxChain = fxChain;
+    this.audioElement = temp.audioElement;
+
+    this.config = generalConfig;
+    this.audioNodes = [];
+
+    // HardCoded
+    this.gridDetail = 4;
+  }
+
+  setFXChain(fxChain) {
+    this.fxChain = fxChain;
+  }
+
+  getSrc() {
+    const audioContextDelivery = new AudioContextDelivery();
+    this.src = this.audioContext.createBufferSource();
+    this.src.buffer = audioContextDelivery.getBuffer(this.file);
+  }
+
+  applyFxChain() {
+    const fxChain = this.fxChain;
+
+    if (this.src == null) {
+      console.error("Source element was not defined");
+      return;
     }
 
-    getSrc(){
-        const audioContextDelivery = new AudioContextDelivery();
-        this.src = this.audioContext.createBufferSource();
-        this.src.buffer = audioContextDelivery.getBuffer( this.file );
+    let lastNode = this.src;
+
+    for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex += 1) {
+      this.audioNodes.push(lastNode);
+      lastNode.connect(fxChain[fxIndex]);
+
+      lastNode = fxChain[fxIndex];
     }
 
-    applyFxChain(){
-        const fxChain = this.fxChain;
+    this.audioNodes.push(lastNode);
 
-        if (this.src == null){
-            console.error('Source element was not defined')
-            return;
-        }
+    const audioContextDelivery = new AudioContextDelivery();
+    lastNode.connect(audioContextDelivery.getDestination());
+  }
 
-        let lastNode = this.src;
+  play(tab, playTime) {
+    this.getSrc();
+    this.applyFxChain();
 
-        for (let fxIndex = 0; fxIndex < fxChain.length; fxIndex+=1){
-            this.audioNodes.push( lastNode );
-            lastNode.connect( fxChain[fxIndex] );
+    const delta = 60 / this.config.bpm / this.gridDetail;
 
-            lastNode = fxChain[fxIndex];
-        }
+    const t = playTime;
+    const tf = t + delta;
 
-        this.audioNodes.push( lastNode );
-
-        const audioContextDelivery = new AudioContextDelivery();
-        lastNode.connect( audioContextDelivery.getDestination() );
+    if (tab) {
+      this.src.start(playTime, 0);
     }
 
-    play(tab, playTime){
-        this.getSrc();
-        this.applyFxChain();
+    return tf;
+  }
 
-        const delta = (60 / this.config.bpm)/this.gridDetail;
-        
-        const t = playTime;
-        const tf = t + delta;
-
-        if (tab){
-            this.src.start( playTime, 0 );
-        }
-
-        return tf;
+  clearNodes() {
+    for (let i = 0; i < this.audioNodes.length; i++) {
+      this.audioNodes[i].disconnect();
     }
-
-    clearNodes(){
-        for (let i = 0; i < this.audioNodes.length; i++){
-            this.audioNodes[i].disconnect();
-        }
-    }
+  }
 }
 
-export {SourceOsc, SourceFile};
+export { SourceOsc, SourceFile };

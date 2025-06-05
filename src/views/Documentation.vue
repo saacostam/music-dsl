@@ -5,9 +5,9 @@
     </h1>
 
     <p>
-      TuneCode is a web programming language for music creation, aimed at
-      people with experience in using music production software (DAW: Digital
-      Audio Workstations).
+      TuneCode is a web programming language for music creation, aimed at people
+      with experience in using music production software (DAW: Digital Audio
+      Workstations).
     </p>
     <p>
       Using concepts analogous to DAWs, TuneCode allows the reproduction of
@@ -15,13 +15,13 @@
       application of effects on these sound sources.
     </p>
     <p>
-      Below is the basic documentation of the language, which explains in
-      detail each of the language's primitives.
+      Below is the basic documentation of the language, which explains in detail
+      each of the language's primitives.
     </p>
     <p>
       If you are already familiar with the language, you can access the web
-      editor <a href="https://saacostam.github.io/music-dsl/#/" target="_blank"
-        >here</a
+      editor
+      <a href="https://saacostam.github.io/music-dsl/#/" target="_blank">here</a
       >.
     </p>
 
@@ -29,8 +29,8 @@
     <h2 id="program-structure">Program Structure</h2>
 
     <p>
-      In all code written in this language, the Config and Scheduler blocks
-      must be declared, as follows:
+      In all code written in this language, the Config and Scheduler blocks must
+      be declared, as follows:
     </p>
     <pre><code>Config : {
     bpm : &lt;tempo&gt;,
@@ -45,17 +45,17 @@ Scheduler : {
     <ul>
       <li>
         bpm: Indicates the tempo at which the musical piece will be played.
-        `bpm` must be replaced by an integer greater than 0.
+        <code>bpm</code> must be replaced by an integer greater than 0.
       </li>
       <li>
         detail: This belongs to a functionality that has not been implemented,
-        however, it must still be declared. `detailNum` must be replaced by an
-        integer greater than 0.
+        however, it must still be declared. <code>detailNum</code> must be
+        replaced by an integer greater than 0.
       </li>
     </ul>
     <p>
-      In the Scheduler block, the patterns to be played must be specified.
-      Their declaration and the patterns themselves will be explained later.
+      In the Scheduler block, the patterns to be played must be specified. Their
+      declaration and the patterns themselves will be explained later.
     </p>
 
     <h2 id="tablature">Tablature</h2>
@@ -67,23 +67,26 @@ Scheduler : {
     </p>
     <h3 id="melodic-tablature">Melodic Tablature</h3>
     <p>
-      These tablatures are used to declare melodic segments of the musical
-      piece that are played when the program is executed. These are declared
-      by specifying the musical notes along with the duration of each, in this
-      way:
+      These tablatures are used to declare melodic segments of the musical piece
+      that are played when the program is executed. These are declared by
+      specifying the musical notes along with the duration of each, in this way:
     </p>
     <pre><code>Tablature &lt;Name&gt; : Melodic { &lt;note&gt;.&lt;t&gt;, &lt;note&gt;.&lt;t&gt;, &lt;note&gt;.&lt;t&gt;, &lt;note&gt;.&lt;t&gt;,}
         </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the tablature will receive.</li>
+      <li>
+        <code>Name</code> must be replaced by the name the tablature will
+        receive.
+      </li>
       <li>
         Inside the brackets "{}", separated by commas, the notes of the
         tablature must be written, which will then be played one after another.
-        These notes have the following format: `note`.`t`, replacing `note`
-        with the name of the note in English, which range from C0 to C8,
-        also specifying whether they are sharp or not, by writing "#" next
-        to the note, and replacing `t` with the duration of the note playing,
-        which must be a positive integer greater than 0.
+        These notes have the following format: <code>note</code>.<code>t</code>,
+        replacing <code>note</code> with the name of the note in English, which
+        range from C0 to C8, also specifying whether they are sharp or not, by
+        writing "#" next to the note, and replacing <code>t</code> with the
+        duration of the note playing, which must be a positive integer greater
+        than 0.
       </li>
       <li>Silences are represented by a hyphen "-".</li>
     </ul>
@@ -94,14 +97,19 @@ Scheduler : {
     <h3 id="rhythmic-tablature">Rhythmic Tablature</h3>
     <p>
       These tablatures are used to declare rhythmic segments of the musical
-      piece that are played when the program is executed. These are declared
-      by specifying the series of beats and silences to be played. As follows:
+      piece that are played when the program is executed. These are declared by
+      specifying the series of beats and silences to be played. As follows:
     </p>
     <pre><code>Tablature &lt;Name&gt; : Rhythmic {&lt;rhythm&gt;}
 </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the tablature will receive.</li>
-      <li>`rhythm` must be replaced by a series of beats and silences.</li>
+      <li>
+        <code>Name</code> must be replaced by the name the tablature will
+        receive.
+      </li>
+      <li>
+        <code>rhythm</code> must be replaced by a series of beats and silences.
+      </li>
       <li>Beats are represented by a dot "." and silences by a hyphen "-".</li>
     </ul>
     <h4>Example</h4>
@@ -109,9 +117,8 @@ Scheduler : {
     <pre><code>Tablature myRhythmicTab : Rhythmic {--.- --.- --.- --.-}
         </code></pre>
     <p>
-      Spaces can be included between the series of beats and silences for
-      better organization. In this way, the previous example is equivalent
-      to this:
+      Spaces can be included between the series of beats and silences for better
+      organization. In this way, the previous example is equivalent to this:
     </p>
     <pre><code>Tablature myRhythmicTab : Rhythmic {--.---.---.---.-}
         </code></pre>
@@ -126,11 +133,13 @@ Scheduler : {
 }
         </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the effect will receive.</li>
       <li>
-        `Type` must be replaced by one of the types of effects that can be
-        declared within the language. The different types of effects are listed
-        below:
+        <code>Name</code> must be replaced by the name the effect will receive.
+      </li>
+      <li>
+        <code>Type</code> must be replaced by one of the types of effects that
+        can be declared within the language. The different types of effects are
+        listed below:
         <ul>
           <li>Delay</li>
           <li>Distortion</li>
@@ -145,10 +154,10 @@ Scheduler : {
         </ul>
       </li>
       <li>
-        Inside the brackets "{}", `Params` must be replaced by a series of
-        `key:value` pairs, separated by commas, where each pair describes a
-        parameter of the effect. The names and values of each parameter depend
-        on the type of effect being declared.
+        Inside the brackets "{}", <code>Params</code> must be replaced by a
+        series of <code>key:value</code> pairs, separated by commas, where each
+        pair describes a parameter of the effect. The names and values of each
+        parameter depend on the type of effect being declared.
       </li>
     </ul>
     <p>
@@ -170,10 +179,12 @@ Scheduler : {
 }
         </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the source will receive.</li>
       <li>
-        `OscType` must be replaced by the name of the oscillator type to be
-        used. This can be:
+        <code>Name</code> must be replaced by the name the source will receive.
+      </li>
+      <li>
+        <code>OscType</code> must be replaced by the name of the oscillator type
+        to be used. This can be:
         <ul>
           <li>Sine</li>
           <li>Square</li>
@@ -183,7 +194,7 @@ Scheduler : {
       </li>
       <li>
         Inside the brackets "{}", the chain of previously created effects must
-        be placed. Each effect must be separated by an arrow `->`.
+        be placed. Each effect must be separated by an arrow <code>-></code>.
       </li>
     </ul>
     <h4>Example</h4>
@@ -198,16 +209,18 @@ Scheduler : {
 }
         </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the source will receive.</li>
       <li>
-        `FilePath` must be replaced by the path to the file to be used. A
-        standard library with samples of percussive elements (kick, snare, hi
-        hat, etc.) is included, which can be consulted on the left side of the
-        web editor.
+        <code>Name</code> must be replaced by the name the source will receive.
+      </li>
+      <li>
+        <code>FilePath</code> must be replaced by the path to the file to be
+        used. A standard library with samples of percussive elements (kick,
+        snare, hi hat, etc.) is included, which can be consulted on the left
+        side of the web editor.
       </li>
       <li>
         Inside the brackets "{}", the chain of previously created effects must
-        be placed. Each effect must be separated by an arrow `->`.
+        be placed. Each effect must be separated by an arrow <code>-></code>.
       </li>
     </ul>
     <h4>Example</h4>
@@ -219,34 +232,36 @@ Scheduler : {
     <h2 id="pattern">Patterns</h2>
 
     <p>
-      A pattern is a pair of a tablature and a source. The created patterns
-      will be those that can be played in the Scheduler. These are declared
-      as follows:
+      A pattern is a pair of a tablature and a source. The created patterns will
+      be those that can be played in the Scheduler. These are declared as
+      follows:
     </p>
     <pre><code>Pattern &lt;Name&gt; : {&lt;TablatureName&gt; -&gt; &lt;SourceName&gt;}
         </code></pre>
     <ul>
-      <li>`Name` must be replaced by the name the pattern will receive.</li>
       <li>
-        `TablatureName` must be replaced by the name of a previously created
-        tablature.
+        <code>Name</code> must be replaced by the name the pattern will receive.
       </li>
       <li>
-        `SourceName` must be replaced by the name of a previously created
-        source.
+        <code>TablatureName</code> must be replaced by the name of a previously
+        created tablature.
+      </li>
+      <li>
+        <code>SourceName</code> must be replaced by the name of a previously
+        created source.
       </li>
       <li>
         It is important to note that when declaring a pattern, if the tablature
-        used is melodic, the associated source must be an oscillator source,
-        and if the tablature is rhythmic, the associated source must be a file
-        source. Any other combination will result in an error when executing
-        the code.
+        used is melodic, the associated source must be an oscillator source, and
+        if the tablature is rhythmic, the associated source must be a file
+        source. Any other combination will result in an error when executing the
+        code.
       </li>
     </ul>
     <h4>Example</h4>
 
-    <pre><code>Pattern patron1 : {myMelodicTab -&gt; oscSource}
-Pattern patron2 : {myRhythmicTab -&gt; fileSource}
+    <pre><code>Pattern pattern1 : {myMelodicTab -&gt; oscSource}
+Pattern pattern2 : {myRhythmicTab -&gt; fileSource}
         </code></pre>
     <h2 id="scheduler">Scheduler</h2>
 
@@ -278,19 +293,22 @@ Pattern patron2 : {myRhythmicTab -&gt; fileSource}
     <ul>
       <li>
         To declare the reproduction of a pattern in Loop mode, it must be
-        declared as "Loop `PatternName`", replacing `PatternName` with the name
-        of the previously created pattern to be played.
+        declared as "Loop <code>PatternName</code>", replacing
+        <code>PatternName</code> with the name of the previously created pattern
+        to be played.
       </li>
       <li>
-        To declare the reproduction of a sequence of patterns, the reserved
-        word "Sequential" must be included, followed by the pattern
-        identifiers, separated by an arrow `->`, as follows:
+        To declare the reproduction of a sequence of patterns, the reserved word
+        "Sequential" must be included, followed by the pattern identifiers,
+        separated by an arrow <code>-></code>, as follows:
         <ul>
           <li>
             It is important to note that the order matters, since the elements
             defined further to the left are played first.
 
-            <pre class="m-2"><code>Sequential &lt;PatternName&gt; -&gt; &lt;PatternName&gt; -&gt; &lt;PatternName&gt;</code></pre>
+            <pre
+              class="m-2"
+            ><code>Sequential &lt;PatternName&gt; -&gt; &lt;PatternName&gt; -&gt; &lt;PatternName&gt;</code></pre>
           </li>
         </ul>
       </li>
@@ -303,9 +321,9 @@ Pattern patron2 : {myRhythmicTab -&gt; fileSource}
     <h4>Example</h4>
 
     <pre><code>Scheduler : {
-    Loop ritmo1 ,
-    Loop ritmo2 ,
-    Sequential intro -&gt; verso -&gt; coro,
+    Loop rhythm1 ,
+    Loop rhythm2 ,
+    Sequential intro -&gt; verse -&gt; chorus,
 }
         </code></pre>
   </div>
@@ -313,7 +331,7 @@ Pattern patron2 : {myRhythmicTab -&gt; fileSource}
 
 <script>
 export default {
-  name: 'documentation',
+  name: "documentation",
 };
 </script>
 

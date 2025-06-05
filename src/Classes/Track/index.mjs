@@ -1,55 +1,55 @@
-class TrackLoop{
-    constructor(pattern, config){
-        this.pattern = pattern;
-        this.config = config;
+class TrackLoop {
+  constructor(pattern, config) {
+    this.pattern = pattern;
+    this.config = config;
 
-        this.endTime = 0;
+    this.endTime = 0;
 
-        this.gridDetail = 4;
-    }
+    this.gridDetail = 4;
+  }
 
-    playNext(){
-        this.endTime = this.pattern.playNext( this.endTime );
-    }
+  playNext() {
+    this.endTime = this.pattern.playNext(this.endTime);
+  }
 
-    getEndTime(){
-        return this.endTime;
-    }
+  getEndTime() {
+    return this.endTime;
+  }
 
-    setEndTime(newTime){
-        this.endTime = newTime;
-    }
+  setEndTime(newTime) {
+    this.endTime = newTime;
+  }
 }
 
-class TrackSequential{
-    constructor(patterns, config){
-        this.patterns = patterns;
-        this.currentPattern = 0;
+class TrackSequential {
+  constructor(patterns, config) {
+    this.patterns = patterns;
+    this.currentPattern = 0;
 
-        this.count = this.patterns[this.currentPattern].getLength();
+    this.count = this.patterns[this.currentPattern].getLength();
 
-        this.config = config;
+    this.config = config;
 
-        this.gridDetail = 4;
+    this.gridDetail = 4;
+  }
+
+  playNext() {
+    this.endTime = this.patterns[this.currentPattern].playNext(this.endTime);
+    this.count -= 1;
+
+    if (this.count === 0) {
+      this.currentPattern = (this.currentPattern + 1) % this.patterns.length;
+      this.count = this.patterns[this.currentPattern].getLength();
     }
+  }
 
-    playNext(){
-        this.endTime = this.patterns[this.currentPattern].playNext( this.endTime );
-        this.count -= 1;
+  getEndTime() {
+    return this.endTime;
+  }
 
-        if (this.count  === 0){
-            this.currentPattern = (this.currentPattern + 1)%this.patterns.length;
-            this.count = this.patterns[ this.currentPattern ].getLength();
-        }
-    }
-
-    getEndTime(){
-        return this.endTime;
-    }
-
-    setEndTime(newTime){
-        this.endTime = newTime;
-    }
+  setEndTime(newTime) {
+    this.endTime = newTime;
+  }
 }
 
-export {TrackLoop, TrackSequential}
+export { TrackLoop, TrackSequential };

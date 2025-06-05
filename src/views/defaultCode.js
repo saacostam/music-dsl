@@ -9,7 +9,7 @@ Config : {
 Scheduler : {
     // Aqui puedes definir tus tracks, mediante patrones
 }
-`
+`;
 
 const syntaxError = `Config : {
     bpm : 120,
@@ -21,7 +21,7 @@ Tablature myTablature : melodic {}
 
 Scheduler : {
     // Aqui puedes definir tus tracks, mediante patrones
-}`
+}`;
 
 const semanticError = `Config : {
     bpm : 120,
@@ -36,7 +36,7 @@ Pattern myKickPattern: {kickTab -> myKickSource}
 Scheduler : {
     // ❌ Error Semantico: Se define una track con un patrón que no se creo, debido a un error
     Loop myKickPattern,
-}`
+}`;
 
 const samples = `Config : {
     bpm : 89,
@@ -78,7 +78,7 @@ Scheduler : {
     Loop myBassPattern,
     Loop myDrumLoopPattern,
     Loop myChordPattern,
-}`
+}`;
 
 const melody = `Config : {
     bpm : 105, 
@@ -128,7 +128,7 @@ Scheduler : {
     Loop bass,
     Loop supportMelody,
 }
-`
+`;
 
 const effect = `Config : {
     bpm : 80,
@@ -163,7 +163,7 @@ Pattern perc : { percTab -> perc }
 
 Scheduler : {
     Loop perc,
-}`
+}`;
 
 const song = `// Run the code by clicking the blue play button on the left
 // Use the "load examples" drop-down menu to check other examples 
@@ -213,16 +213,16 @@ Scheduler : {
     Loop myKickPattern,
     Loop mySnarePattern,
     Loop myHiHatPattern,
-}`
+}`;
 
 const examples = {
-    'Error Sintáctico' : syntaxError,
-    'Error Semántico' : semanticError,
-    'Osciladores' : melody,
-    'Archivos de Audio' : samples,
-    'Efectos' : effect,
-    'Canción' : song,
-}
+  "Error Sintáctico": syntaxError,
+  "Error Semántico": semanticError,
+  Osciladores: melody,
+  "Archivos de Audio": samples,
+  Efectos: effect,
+  Canción: song,
+};
 
-export {examples};
+export { examples };
 export default song;
