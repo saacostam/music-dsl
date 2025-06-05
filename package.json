@@ -25,7 +25,6 @@
     "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "vue-gh-pages": "^1.19.1"
+    "@vue/cli-service": "~5.0.0"
   }
 }
